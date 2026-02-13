@@ -1,0 +1,155 @@
+:root {
+  --bg: #fff7c2;
+  --card: #fffdf1;
+  --ink: #101010;
+  --accent: #f3ba2f;
+  --warn: #ffb020;
+  --danger: #e53935;
+  --safe: #1a7f37;
+  --grid: rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 5% 5%, rgba(243, 186, 47, 0.35), transparent 30%),
+    radial-gradient(circle at 95% 20%, rgba(229, 57, 53, 0.15), transparent 35%),
+    linear-gradient(135deg, #fff6b0, #ffe9a7 45%, #ffe6bf);
+  color: var(--ink);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.hero {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 12px,
+      rgba(0, 0, 0, 0.04) 12px,
+      rgba(0, 0, 0, 0.04) 24px
+    ),
+    var(--card);
+  border: 2px solid #111;
+  border-radius: 20px;
+  box-shadow: 8px 8px 0 #111;
+  padding: 24px;
+}
+
+.formCard,
+.panel,
+.walletPanel {
+  background: var(--card);
+  border: 1.5px solid #111;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+textarea,
+button {
+  border: 1.5px solid #111;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 700;
+  background: #111;
+  color: #fff;
+}
+
+button.secondary {
+  background: #fff;
+  color: #111;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #111;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.badge.green {
+  background: #d2f5d7;
+}
+
+.badge.yellow {
+  background: #ffeeb6;
+}
+
+.badge.red {
+  background: #ffd4d4;
+}
+
+.badge.unknown {
+  background: #efefef;
+}
+
+.finding {
+  border: 1px dashed #111;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fffef8;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.small {
+  color: #444;
+  font-size: 0.87rem;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding: 18px;
+  }
+}
