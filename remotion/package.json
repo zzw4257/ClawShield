@@ -1,0 +1,27 @@
+{
+  "name": "@clawshield/remotion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render src/index.ts ClawShieldDemo ../media/video/clawshield-demo.mp4 --codec=h264",
+    "still": "remotion still src/index.ts ClawShieldCover ../media/video/clawshield-cover.png",
+    "voiceover": "tsx scripts/generate-voiceover.ts"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.366",
+    "@remotion/google-fonts": "^4.0.366",
+    "@remotion/transitions": "^4.0.366",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "^4.0.366",
+    "zod": "3.22.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@types/react": "^18.3.18",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

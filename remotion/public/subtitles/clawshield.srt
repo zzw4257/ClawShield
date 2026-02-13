@@ -1,0 +1,27 @@
+1
+00:00:00,000 --> 00:00:10,000
+Skills are powerful, but malicious skills can hide remote execution and key theft.
+
+2
+00:00:10,000 --> 00:00:23,000
+ClawShield audits a specific commit, explains findings, and binds report evidence onchain.
+
+3
+00:00:23,000 --> 00:00:42,000
+Paste repository URL and commit SHA, then receive a fingerprinted risk report in seconds.
+
+4
+00:00:42,000 --> 00:00:58,000
+Approved green reports can be attested on opBNB testnet with contract and tx verification.
+
+5
+00:00:58,000 --> 00:01:13,000
+AI build log captures prompts, generated code, screenshots, and debugging decisions.
+
+6
+00:01:13,000 --> 00:01:25,000
+Submission includes onchain proof, reproducible setup, and one-command verification artifacts.
+
+7
+00:01:25,000 --> 00:01:30,000
+ClawShield. Build fast. Prove trust onchain.
