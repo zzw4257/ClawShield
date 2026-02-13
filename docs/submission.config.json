@@ -1,0 +1,30 @@
+{
+  "buidlName": "ClawShield",
+  "track": "Agent",
+  "isAiAgent": "Yes. ClawShield uses deterministic rules for commit risk scoring and AI for explainable security guidance.",
+  "oneLiner": "Commit-bound AI security attestation with onchain proof on opBNB Testnet.",
+  "problem": "OpenClaw skill ecosystems move quickly, but users cannot reliably verify whether a specific skill commit is safe before installation.",
+  "solution": "ClawShield audits a GitHub repo plus commit SHA, produces a reproducible risk report, and stores attestation facts onchain for transparent verification.",
+  "keyDifferentiators": [
+    "Fingerprint + report hash bind every result to one exact commit.",
+    "Green-only attestation policy is enforced in backend and smart contract.",
+    "Structured findings combine deterministic evidence with AI-readable summaries.",
+    "Submission package includes architecture docs, test commands, and AI Build Log evidence."
+  ],
+  "reproducibility": [
+    "Public monorepo with .env.example and deterministic API interfaces.",
+    "Contract/API/Web tests and E2E smoke command documented in docs/TESTING.md.",
+    "Single command workflow for deployment, attestation, and event verification."
+  ],
+  "aiBuildLog": [
+    "AI_BUILD_LOG.md",
+    "docs/ai-log/TRACE_LOG.md",
+    "docs/ai-log/prompts/",
+    "docs/ai-log/outputs/",
+    "docs/ai-log/screenshots/",
+    "docs/ai-log/diffs/"
+  ],
+  "repoUrl": "https://github.com/your-org/clawshield",
+  "demoUrl": "https://clawshield.vercel.app",
+  "videoUrl": "media/video/clawshield-demo.mp4"
+}
