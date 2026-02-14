@@ -31,6 +31,34 @@ main {
   padding: 28px 20px 60px;
 }
 
+.proofRibbon {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 2px solid #111;
+  background: linear-gradient(180deg, #ffcf5a, #f3ba2f);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.proofCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.proofLabel {
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 h1,
 h2,
 h3 {
@@ -148,8 +176,57 @@ button.secondary {
   font-size: 0.87rem;
 }
 
+.statusTimeline {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 16px;
+}
+
+.timelineStep {
+  border: 1.5px solid #111;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  background: #fff;
+  font-weight: 700;
+}
+
+.timelineStep.done {
+  background: #d2f5d7;
+}
+
+.timelineStep.active {
+  background: #ffeeb6;
+}
+
+.timelineStep.pending {
+  background: #efefef;
+  color: #555;
+}
+
+.judgeView {
+  display: grid;
+  gap: 8px;
+}
+
+.judgeViewRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px;
+  align-items: start;
+}
+
+.judgeViewRow span {
+  font-weight: 700;
+}
+
 @media (max-width: 720px) {
   .hero {
     padding: 18px;
+  }
+
+  .judgeViewRow {
+    grid-template-columns: 1fr;
   }
 }

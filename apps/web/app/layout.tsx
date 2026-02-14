@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "../components/providers";
+import { ProofRibbon } from "../components/proof-ribbon";
 
 export const metadata: Metadata = {
   title: "ClawShield",
@@ -11,7 +12,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <ProofRibbon />
+          {children}
+        </Providers>
       </body>
     </html>
   );

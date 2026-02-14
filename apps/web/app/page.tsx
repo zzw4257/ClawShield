@@ -33,7 +33,7 @@ export default function HomePage() {
         <p className="small">BNB Chain Good Vibes Only · Agent Track</p>
         <h1>ClawShield</h1>
         <p>
-          Audit any OpenClaw skill commit, generate explainable risk report, and anchor attestation
+          Audit one OpenClaw commit, get a deterministic risk verdict, and verify the attestation
           on opBNB testnet.
         </p>
         <div className="grid">

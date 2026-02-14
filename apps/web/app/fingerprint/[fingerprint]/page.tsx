@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getAttestations } from "../../../lib/api";
+import { ScoreBadge } from "../../../components/score-badge";
+import { PROOF } from "../../../lib/proof";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +22,13 @@ type AttestationItem = {
   blockTime: number;
 };
 
+function formatUtcTime(unixSeconds: number): string {
+  if (!Number.isFinite(unixSeconds) || unixSeconds <= 0) {
+    return "N/A";
+  }
+  return new Date(unixSeconds * 1000).toISOString();
+}
+
 export default async function FingerprintPage({ params }: Props) {
   const data = (await getAttestations(params.fingerprint)) as {
     latest: AttestationItem | null;
@@ -35,11 +44,15 @@ export default async function FingerprintPage({ params }: Props) {
         {data.latest ? (
           <article className="panel">
             <h3>Latest</h3>
-            <p>
-              Score {data.latest.score} · {data.latest.level}
+            <ScoreBadge score={data.latest.score} level={data.latest.level} />
+            <p className="mono">
+              TX:{" "}
+              <a href={`${PROOF.explorerBase}/tx/${data.latest.txHash}`} target="_blank" rel="noreferrer">
+                {data.latest.txHash}
+              </a>
             </p>
-            <p className="mono">TX: {data.latest.txHash}</p>
             <p className="mono">Attester: {data.latest.attester}</p>
+            <p className="small">Block time (UTC): {formatUtcTime(data.latest.blockTime)}</p>
             <a href={data.latest.reportUrl} target="_blank" rel="noreferrer">
               Open report
             </a>
@@ -54,10 +67,16 @@ export default async function FingerprintPage({ params }: Props) {
           {data.history.map((item, index) => (
             <div className="finding" key={`${item.txHash}-${index}`}>
               <p>
-                #{index + 1} {item.level} · {item.score}
+                #{index + 1} <ScoreBadge level={item.level} score={item.score} />
               </p>
-              <p className="mono">TX: {item.txHash}</p>
+              <p className="mono">
+                TX:{" "}
+                <a href={`${PROOF.explorerBase}/tx/${item.txHash}`} target="_blank" rel="noreferrer">
+                  {item.txHash}
+                </a>
+              </p>
               <p className="mono">Report: {item.reportHash}</p>
+              <p className="small">Block time (UTC): {formatUtcTime(item.blockTime)}</p>
             </div>
           ))}
         </article>

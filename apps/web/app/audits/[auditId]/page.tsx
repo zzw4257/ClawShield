@@ -25,6 +25,31 @@ type AuditResponse = {
   error?: string;
 };
 
+type TimelineStep = "queued" | "running" | "done" | "failed";
+
+function getTimelineState(
+  step: TimelineStep,
+  status: AuditResponse["status"] | undefined
+): "done" | "active" | "pending" {
+  if (!status) return "pending";
+
+  if (status === "failed") {
+    if (step === "failed") return "active";
+    if (step === "done") return "pending";
+    return "done";
+  }
+
+  const order: TimelineStep[] = ["queued", "running", "done"];
+  const currentIndex = order.indexOf(status);
+  const stepIndex = order.indexOf(step);
+
+  if (step === "failed") return "pending";
+  if (stepIndex < 0 || currentIndex < 0) return "pending";
+  if (stepIndex < currentIndex) return "done";
+  if (stepIndex === currentIndex) return "active";
+  return "pending";
+}
+
 export default function AuditDetailPage() {
   const params = useParams<{ auditId: string }>();
   const auditId = params.auditId;
@@ -34,6 +59,7 @@ export default function AuditDetailPage() {
   const [isAttesting, setIsAttesting] = useState(false);
   const [tx, setTx] = useState<string | null>(null);
   const [attestError, setAttestError] = useState<string | null>(null);
+  const explorerBase = "https://opbnb-testnet-scan.bnbchain.org";
 
   const shouldPoll = useMemo(() => {
     if (!audit) return true;
@@ -87,6 +113,13 @@ export default function AuditDetailPage() {
             <article className="panel">
               <h3>Summary</h3>
               <p>Status: {audit.status}</p>
+              <div className="statusTimeline">
+                {(["queued", "running", "done", "failed"] as TimelineStep[]).map((step) => (
+                  <span key={step} className={`timelineStep ${getTimelineState(step, audit.status)}`}>
+                    {step.toUpperCase()}
+                  </span>
+                ))}
+              </div>
               <ScoreBadge level={audit.level} score={audit.score} />
               {audit.fingerprint ? (
                 <p className="mono">Fingerprint: {audit.fingerprint}</p>
@@ -99,6 +132,33 @@ export default function AuditDetailPage() {
                   </a>
                 </p>
               ) : null}
+              <details>
+                <summary>Judge View (one-screen facts)</summary>
+                <div className="judgeView">
+                  <div className="judgeViewRow">
+                    <span>Score/Level</span>
+                    <div>{audit.score ?? "N/A"} / {audit.level ?? "N/A"}</div>
+                  </div>
+                  <div className="judgeViewRow">
+                    <span>Fingerprint</span>
+                    <code className="mono">{audit.fingerprint || "N/A"}</code>
+                  </div>
+                  <div className="judgeViewRow">
+                    <span>Report Hash</span>
+                    <code className="mono">{audit.reportHash || "N/A"}</code>
+                  </div>
+                  <div className="judgeViewRow">
+                    <span>TX</span>
+                    {tx ? (
+                      <a href={`${explorerBase}/tx/${tx}`} target="_blank" rel="noreferrer">
+                        {tx}
+                      </a>
+                    ) : (
+                      <span>N/A</span>
+                    )}
+                  </div>
+                </div>
+              </details>
               {audit.error ? <p>{audit.error}</p> : null}
               <div className="ctaRow">
                 <button
@@ -118,7 +178,14 @@ export default function AuditDetailPage() {
                   {isAttesting ? "Attesting..." : "Attest Onchain"}
                 </button>
               </div>
-              {tx ? <p className="mono">TX: {tx}</p> : null}
+              {tx ? (
+                <p>
+                  TX:{" "}
+                  <a className="mono" href={`${explorerBase}/tx/${tx}`} target="_blank" rel="noreferrer">
+                    {tx}
+                  </a>
+                </p>
+              ) : null}
               {attestError ? <p className="small">{attestError}</p> : null}
               {audit.fingerprint ? (
                 <Link href={`/fingerprint/${audit.fingerprint}`}>View fingerprint attestations</Link>
