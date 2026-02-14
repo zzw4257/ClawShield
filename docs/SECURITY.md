@@ -21,3 +21,13 @@
 - `.env` is local-only and ignored by git
 - No private key in frontend runtime
 - Report hash anchored onchain for integrity checks
+- Secret scan command: `npm run security:scan`
+- Dedicated CI workflow: `.github/workflows/secret-scan.yml`
+
+## Incident Response & Rotation Log
+
+| UTC Timestamp | Scope | Action | Verification |
+|---|---|---|---|
+| 2026-02-14T03:20:00Z | `.env.example` template | Replaced all real-looking credentials with redacted template tokens | `rg -n "sk-|AIza|PRIVATE_KEY=" .env.example` returns no live secrets |
+| 2026-02-14T03:21:00Z | Repo secret detection | Added `.gitleaks.toml` and `npm run security:scan` | Local scan command available; CI workflow added |
+| 2026-02-14T03:22:00Z | Git history hygiene | Planned rewrite to remove historical sensitive `.env.example` blobs | Execute `git filter-repo` + force push + tag rebuild in release freeze step |

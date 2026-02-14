@@ -5,12 +5,41 @@ import { DatabaseClient } from "./lib/db.js";
 import { createApiRouter } from "./routes/api.js";
 import { createRateLimiter } from "./lib/rate-limit.js";
 import { AuditQueue } from "./services/audit-queue.js";
+import { env } from "./config/env.js";
+
+function isAllowedOrigin(origin: string | undefined, raw: string): boolean {
+  if (!origin) {
+    return true;
+  }
+  if (raw.trim() === "*" || raw.trim() === "") {
+    return true;
+  }
+
+  const allowlist = new Set(
+    raw
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean)
+  );
+
+  return allowlist.has(origin);
+}
 
 export function createApp(db: DatabaseClient) {
   const app = express();
   const queue = new AuditQueue(db, 1);
 
-  app.use(cors());
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        if (isAllowedOrigin(origin, env.corsAllowedOrigins)) {
+          callback(null, true);
+          return;
+        }
+        callback(new Error("CORS origin denied"));
+      }
+    })
+  );
   app.use(express.json({ limit: "1mb" }));
   app.use(morgan("dev"));
 

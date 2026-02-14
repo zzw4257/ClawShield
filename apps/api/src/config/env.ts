@@ -14,6 +14,7 @@ const schema = z.object({
   BACKEND_PORT: z.coerce.number().default(8787),
   DB_PATH: z.string().default(path.resolve(apiRoot, "data", "clawshield.db")),
   NEXT_PUBLIC_API_URL: z.string().optional(),
+  CORS_ALLOWED_ORIGINS: z.string().default("*"),
   LLM_BASE_URL: z.string().optional(),
   LLM_API_KEY: z.string().optional(),
   LLM_MODEL: z.string().optional(),
@@ -23,7 +24,12 @@ const schema = z.object({
   GEMINI_API_KEY: z.string().optional(),
   GEMINI_MODEL_PRO: z.string().optional(),
   GEMINI_MODEL_FLASH: z.string().optional(),
-  BANANA_SLIDES_URL: z.string().optional()
+  GEMINI_IMAGE_MODEL: z.string().optional(),
+  BANANA_SLIDES_URL: z.string().optional(),
+  RELEASE_REPO_URL: z.string().optional(),
+  RELEASE_DEMO_URL: z.string().optional(),
+  RELEASE_VIDEO_URL: z.string().optional(),
+  RELEASE_API_HEALTH_URL: z.string().optional()
 });
 
 const parsed = schema.parse(process.env);
@@ -33,6 +39,7 @@ export const env = {
   dbPath: parsed.DB_PATH,
   reportsDir: path.resolve(workspaceRoot, "data", "reports"),
   publicApiBaseUrl: parsed.NEXT_PUBLIC_API_URL || `http://localhost:${parsed.BACKEND_PORT}`,
+  corsAllowedOrigins: parsed.CORS_ALLOWED_ORIGINS,
   llmBaseUrl: parsed.LLM_BASE_URL,
   llmApiKey: parsed.LLM_API_KEY,
   llmModel: parsed.LLM_MODEL,
@@ -42,5 +49,10 @@ export const env = {
   geminiApiKey: parsed.GEMINI_API_KEY,
   geminiModelPro: parsed.GEMINI_MODEL_PRO || "gemini-1.5-pro",
   geminiModelFlash: parsed.GEMINI_MODEL_FLASH || "gemini-1.5-flash",
-  bananaSlidesUrl: parsed.BANANA_SLIDES_URL
+  geminiImageModel: parsed.GEMINI_IMAGE_MODEL || "gemini-3-pro-image-preview",
+  bananaSlidesUrl: parsed.BANANA_SLIDES_URL,
+  releaseRepoUrl: parsed.RELEASE_REPO_URL,
+  releaseDemoUrl: parsed.RELEASE_DEMO_URL,
+  releaseVideoUrl: parsed.RELEASE_VIDEO_URL,
+  releaseApiHealthUrl: parsed.RELEASE_API_HEALTH_URL
 };
