@@ -1,0 +1,12 @@
+title = "ClawShield gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Non-secret placeholders and public links"
+regexes = [
+  '''YOUR_[A-Z0-9_]+''',
+  '''0xYOUR_[A-Z0-9_]+''',
+  '''https://opbnb-testnet-scan\.bnbchain\.org/(address|tx)/0x[a-fA-F0-9]+'''
+]
