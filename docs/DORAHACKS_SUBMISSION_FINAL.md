@@ -1,6 +1,6 @@
 # DoraHacks Submission Final
 
-Generated at: 2026-02-13T15:54:07.994Z
+Generated at: 2026-02-14T03:28:35.978Z
 
 ## BUIDL Name
 ClawShield
@@ -33,7 +33,7 @@ ClawShield audits a GitHub repo plus commit SHA, produces a reproducible risk re
 - Explorer (TX): https://opbnb-testnet-scan.bnbchain.org/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77
 
 ## Links
-- Repository: https://github.com/your-org/clawshield
+- Repository: https://github.com/zzw4257/ClawShield
 - Demo: https://clawshield.vercel.app
 - Video: media/video/clawshield-demo.mp4
 

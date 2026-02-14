@@ -32,7 +32,7 @@ flowchart LR
 4. Run `npm run proof:refresh --workspace @clawshield/api`.
 5. Open `docs/verification/event-latest.json` and show decoded event fields.
 6. Open explorer links from `docs/PROOF_INDEX.md`.
-7. Open `docs/ai-log/EVIDENCE_INDEX.md`, point to 4 closed-loop cases.
+7. Open `docs/ai-log/EVIDENCE_INDEX.md`, point to 6 closed-loop cases.
 8. Play `media/video/clawshield-demo.mp4` (90s).
 
 ## Consistency Checklist

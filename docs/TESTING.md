@@ -40,6 +40,20 @@ npm run verify:all
 
 This runs: `test -> build -> lint -> e2e -> verify:flow`.
 
+## Offline CI-quality gate (no new onchain tx)
+
+```bash
+npm run verify:ci
+```
+
+This runs: `test -> build -> lint -> e2e`.
+
+## Secret hygiene
+
+```bash
+npm run security:scan
+```
+
 ## Frontend E2E smoke (Playwright)
 
 ```bash

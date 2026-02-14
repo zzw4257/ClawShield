@@ -11,7 +11,8 @@ Commit-bound security attestation for OpenClaw skills. ClawShield audits a speci
 - Proof TX: `0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
 - TX Explorer: `https://opbnb-testnet-scan.bnbchain.org/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
 - 1-line Value: `Audit -> explain -> attest -> query` for one exact commit fingerprint.
-- Live Demo: `http://localhost:3000` (public deployment URL in `docs/submission.config.json`)
+- Live Demo: `https://clawshield.vercel.app`
+- API Health: `https://clawshield-api.onrender.com/api/health`
 - Video: `media/video/clawshield-demo.mp4`
 
 ## Why This Is Agent Track
@@ -114,9 +115,13 @@ npm run contracts:deploy:opbnbTestnet
 5. QA and proof commands
 
 ```bash
+npm run security:scan
+npm run verify:ci
 npm run verify:all
 npm run verify:flow --workspace @clawshield/api
 npm run proof:refresh --workspace @clawshield/api
+npm run release:sync-proof -- --contractAddress <0x...> --txHash <0x...> --repoUrl https://github.com/zzw4257/ClawShield --demoUrl https://clawshield.vercel.app --videoUrl media/video/clawshield-demo.mp4
+npm run release:prepare -- --contractAddress <0x...> --txHash <0x...>
 ```
 
 ## API Endpoints
@@ -135,4 +140,5 @@ npm run proof:refresh --workspace @clawshield/api
 - `docs/PROOF_INDEX.md`
 - `docs/TESTING.md`
 - `docs/DEMO_RUNBOOK.md`
+- `docs/DEPLOY_RENDER_VERCEL.md`
 - `AI_BUILD_LOG.md`

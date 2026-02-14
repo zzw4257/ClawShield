@@ -62,5 +62,5 @@ npm run verify:all
 
 ## Links
 
-- Repository: configured in `docs/submission.config.json`
-- Demo URL: configured in `docs/submission.config.json`
+- Repository: `https://github.com/zzw4257/ClawShield`
+- Demo URL: `https://clawshield.vercel.app`

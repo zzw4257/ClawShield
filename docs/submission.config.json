@@ -24,7 +24,7 @@
     "docs/ai-log/screenshots/",
     "docs/ai-log/diffs/"
   ],
-  "repoUrl": "https://github.com/your-org/clawshield",
+  "repoUrl": "https://github.com/zzw4257/ClawShield",
   "demoUrl": "https://clawshield.vercel.app",
   "videoUrl": "media/video/clawshield-demo.mp4"
 }

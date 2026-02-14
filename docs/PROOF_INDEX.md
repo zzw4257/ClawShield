@@ -22,3 +22,22 @@ npm run proof:refresh --workspace @clawshield/api
 - `docs/verification/flow-latest.json`
 - `docs/verification/event-latest.json`
 - `docs/verification/STATUS.md`
+
+## Final Submission Fields Mapping
+
+- Contract Address:
+  - `README.md` (`Judge Snapshot`)
+  - `docs/JUDGE_PACKET.md` (`15-Second Snapshot`)
+  - `docs/DORAHACKS_SUBMISSION_FINAL.md` (`Onchain Proof`)
+- Proof TX Hash:
+  - `README.md` (`Judge Snapshot`)
+  - `docs/JUDGE_PACKET.md` (`15-Second Snapshot`)
+  - `docs/DORAHACKS_SUBMISSION_FINAL.md` (`Onchain Proof`)
+- Explorer Links:
+  - `README.md`
+  - `docs/PROOF_INDEX.md`
+  - `docs/DORAHACKS_DESCRIPTION_PASTE.md`
+- Verification Artifacts:
+  - `docs/verification/flow-latest.json`
+  - `docs/verification/event-latest.json`
+  - `docs/verification/STATUS.md`

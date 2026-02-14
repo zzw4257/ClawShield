@@ -12,7 +12,8 @@
 3. Fill required variables:
    - `LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`
    - `PRIVATE_KEY`, `CLAWSHIELD_CONTRACT_ADDRESS`, `OPBNB_TESTNET_RPC_URL`
-   - Optional for submission automation: `SUBMISSION_TX_HASH`
+   - Optional for release automation: `SUBMISSION_TX_HASH`, `RELEASE_REPO_URL`, `RELEASE_DEMO_URL`, `RELEASE_VIDEO_URL`, `RELEASE_API_HEALTH_URL`
+   - Production CORS: `CORS_ALLOWED_ORIGINS`
 4. Start backend: `npm run dev:api`
 5. Start frontend: `npm run dev:web`
 6. Open `http://localhost:3000`
@@ -40,7 +41,15 @@
 ## Submission generation
 - Generate final markdown for submission form:
   - `npm run submission:generate --workspace @clawshield/api`
+- Sync proof fields across docs + regenerate submission:
+  - `npm run release:sync-proof -- --contractAddress <CONTRACT_ADDRESS> --txHash <TX_HASH> --repoUrl <REPO_URL> --demoUrl <DEMO_URL> --videoUrl <VIDEO_URL>`
+- One-command release prepare:
+  - `npm run release:prepare -- --contractAddress <CONTRACT_ADDRESS> --txHash <TX_HASH>`
 
 ## Full pre-submit gate
 - Run all required checks:
   - `npm run verify:all`
+- Offline quality gate:
+  - `npm run verify:ci`
+- Secret scan:
+  - `npm run security:scan`
