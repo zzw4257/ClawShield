@@ -12,7 +12,9 @@
     "verify:event": "tsx scripts/verify-attestation-event.ts",
     "submission:generate": "tsx scripts/generate-submission.ts",
     "verify:flow": "tsx scripts/verify-flow.ts",
-    "proof:refresh": "tsx scripts/proof-refresh.ts"
+    "proof:refresh": "tsx scripts/proof-refresh.ts",
+    "sync:proof": "tsx scripts/sync-proof-references.ts",
+    "release:prepare": "tsx scripts/release-prepare.ts"
   },
   "dependencies": {
     "@clawshield/shared-types": "0.1.0",

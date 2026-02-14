@@ -120,8 +120,11 @@ function isHexHash(value: string): boolean {
   return /^0x[a-fA-F0-9]{64}$/.test(value);
 }
 
-function nullableLine(label: string, value?: string): string {
-  return value && value.trim() ? `- ${label}: ${value.trim()}` : `- ${label}: TBD`;
+function requiredLine(label: string, value: string | undefined): string {
+  if (!value || !value.trim()) {
+    throw new Error(`missing required submission link field: ${label}`);
+  }
+  return `- ${label}: ${value.trim()}`;
 }
 
 function generateMarkdown(params: {
@@ -136,10 +139,15 @@ function generateMarkdown(params: {
 }): string {
   const { config } = params;
   const explorerBase = params.explorerBase.replace(/\/$/, "");
-  const contractLink = isHexAddress(params.contractAddress)
-    ? `${explorerBase}/address/${params.contractAddress}`
-    : "TBD";
-  const txLink = isHexHash(params.txHash) ? `${explorerBase}/tx/${params.txHash}` : "TBD";
+  if (!isHexAddress(params.contractAddress)) {
+    throw new Error("contractAddress must be a valid 0x address");
+  }
+  if (!isHexHash(params.txHash)) {
+    throw new Error("txHash must be a valid 0x hash");
+  }
+
+  const contractLink = `${explorerBase}/address/${params.contractAddress}`;
+  const txLink = `${explorerBase}/tx/${params.txHash}`;
 
   return `# DoraHacks Submission Final
 
@@ -173,9 +181,9 @@ ${config.keyDifferentiators.map((item) => `- ${item}`).join("\n")}
 - Explorer (TX): ${txLink}
 
 ## Links
-${nullableLine("Repository", params.repoUrl || config.repoUrl)}
-${nullableLine("Demo", params.demoUrl || config.demoUrl)}
-${nullableLine("Video", params.videoUrl || config.videoUrl)}
+${requiredLine("Repository", params.repoUrl || config.repoUrl)}
+${requiredLine("Demo", params.demoUrl || config.demoUrl)}
+${requiredLine("Video", params.videoUrl || config.videoUrl)}
 
 ## Reproducibility
 ${config.reproducibility.map((item) => `- ${item}`).join("\n")}
@@ -202,12 +210,12 @@ async function main() {
   );
 
   const config = loadConfig(configPath);
-  const contractAddress = getArg(args, "contractAddress") || process.env.CLAWSHIELD_CONTRACT_ADDRESS || "TBD";
-  const txHash = getArg(args, "txHash") || process.env.SUBMISSION_TX_HASH || "TBD";
+  const contractAddress = getArg(args, "contractAddress") || process.env.CLAWSHIELD_CONTRACT_ADDRESS || "";
+  const txHash = getArg(args, "txHash") || process.env.SUBMISSION_TX_HASH || "";
   const explorerBase = getArg(args, "explorerBase") || "https://opbnb-testnet-scan.bnbchain.org";
-  const repoUrl = getArg(args, "repoUrl");
-  const demoUrl = getArg(args, "demoUrl");
-  const videoUrl = getArg(args, "videoUrl");
+  const repoUrl = getArg(args, "repoUrl") || process.env.RELEASE_REPO_URL;
+  const demoUrl = getArg(args, "demoUrl") || process.env.RELEASE_DEMO_URL;
+  const videoUrl = getArg(args, "videoUrl") || process.env.RELEASE_VIDEO_URL;
 
   const markdown = generateMarkdown({
     config,
