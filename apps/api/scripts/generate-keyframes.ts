@@ -16,6 +16,9 @@ interface KeyframeSpec {
   prompt: string;
 }
 
+const ASPECT_RATIO = "16:9";
+const RESOLUTION = "2K";
+
 const SPECS: KeyframeSpec[] = [
   {
     id: "scene-01-problem",
@@ -130,6 +133,71 @@ async function generateViaBanana(prompt: string): Promise<Buffer | null> {
   return Buffer.from(arrayBuffer);
 }
 
+async function generateViaGeminiImage(prompt: string): Promise<{ image: Buffer; model: string } | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  const model = process.env.GEMINI_IMAGE_MODEL || "gemini-3-pro-image-preview";
+  if (!apiKey) {
+    return null;
+  }
+
+  let response: Response;
+  try {
+    response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: prompt }]
+            }
+          ],
+          generationConfig: {
+            responseModalities: ["TEXT", "IMAGE"],
+            imageConfig: {
+              aspectRatio: ASPECT_RATIO,
+              imageSize: RESOLUTION
+            }
+          }
+        })
+      }
+    );
+  } catch {
+    return null;
+  }
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const payload = (await response.json()) as {
+    candidates?: Array<{
+      content?: {
+        parts?: Array<{
+          inlineData?: {
+            mimeType?: string;
+            data?: string;
+          };
+        }>;
+      };
+    }>;
+  };
+
+  const parts = payload.candidates?.[0]?.content?.parts || [];
+  const imagePart = parts.find((part) => part.inlineData?.data);
+  const base64 = imagePart?.inlineData?.data;
+  if (!base64) {
+    return null;
+  }
+
+  return {
+    image: Buffer.from(base64, "base64"),
+    model
+  };
+}
+
 async function main() {
   const outputDir = path.resolve(projectRoot, "media/keyframes");
   const metaDir = path.resolve(projectRoot, "docs/ai-log/outputs");
@@ -140,7 +208,10 @@ async function main() {
 
   for (const spec of SPECS) {
     const optimized = await optimizePrompt(spec.prompt);
-    const image = await generateViaBanana(optimized);
+    const bananaImage = await generateViaBanana(optimized);
+    const geminiImage = bananaImage ? null : await generateViaGeminiImage(optimized);
+    const finalImage = bananaImage || geminiImage?.image || null;
+    const provider = bananaImage ? "banana_slides" : geminiImage ? `gemini:${geminiImage.model}` : "none";
 
     const meta = {
       id: spec.id,
@@ -148,17 +219,19 @@ async function main() {
       generatedAt: runAt,
       promptBase: spec.prompt,
       promptOptimized: optimized,
-      provider: image ? "banana_slides" : "placeholder",
-      status: image ? "generated" : "placeholder_only"
+      provider,
+      status: finalImage ? "generated" : "generation_failed",
+      aspectRatio: ASPECT_RATIO,
+      resolution: RESOLUTION
     };
 
     fs.writeFileSync(path.join(metaDir, `${spec.id}.json`), JSON.stringify(meta, null, 2), "utf8");
 
-    if (image) {
-      fs.writeFileSync(path.join(outputDir, `${spec.id}.png`), image);
+    if (finalImage) {
+      fs.writeFileSync(path.join(outputDir, `${spec.id}.png`), finalImage);
       console.log(`generated ${spec.id}.png`);
     } else {
-      console.log(`skipped image render for ${spec.id}; metadata saved`);
+      console.log(`image generation unavailable for ${spec.id}; metadata saved`);
     }
   }
 }

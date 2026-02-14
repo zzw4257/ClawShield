@@ -1,9 +1,11 @@
 {
   "id": "scene-03-onchain-proof",
   "purpose": "onchain attestation moment",
-  "generatedAt": "2026-02-13T05:24:03.367Z",
+  "generatedAt": "2026-02-14T03:29:15.870Z",
   "promptBase": "Blockchain transaction confirmation for security attestation, opBNB explorer style UI, trust seal animation frame, yellow black palette, 16:9",
-  "promptOptimized": "Cinematic UI/UX interface design of an opBNB explorer dashboard, featuring a successful blockchain transaction confirmation for security attestation. Centralized glowing yellow trust seal with intricate digital animation frames. Sleek obsidian black background, vibrant yellow data highlights, holographic transaction hashes, and cryptographic nodes. High-tech aesthetic, clean typography, futuristic fintech visualization, 8k resolution, hyper-detailed, 16:9 aspect ratio.",
-  "provider": "placeholder",
-  "status": "placeholder_only"
+  "promptOptimized": "Cinematic 16:9 high-tech blockchain dashboard, opBNB explorer UI style, central glowing security attestation trust seal with a golden pulse, \"Transaction Confirmed\" status badge, sleek glassmorphism, intricate cryptographic data overlays, deep matte black background with vibrant neon yellow accents, hyper-detailed digital interface, 8k resolution, Unreal Engine 5 render, professional fintech aesthetic.",
+  "provider": "gemini:gemini-3-pro-image-preview",
+  "status": "generated",
+  "aspectRatio": "16:9",
+  "resolution": "2K"
 }

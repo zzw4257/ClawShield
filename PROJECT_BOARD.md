@@ -21,7 +21,7 @@
 | P0-07 | Add audit queue + API rate-limit + attest idempotency | `type:backend priority:p0` | done | solo |
 | P0-08 | Add API integration tests + CI workflow | `type:backend priority:p0 proof:reproducibility` | done | solo |
 | P1-01 | Fill deployed contract address + first tx hash in README | `type:docs priority:p1 proof:onchain` | done | solo |
-| P1-02 | Produce keyframe images with Gemini/Banana endpoint | `type:video priority:p1 proof:ai-bonus` | todo | solo |
+| P1-02 | Produce keyframe images with Gemini/Banana endpoint | `type:video priority:p1 proof:ai-bonus` | done | solo |
 | P1-03 | Render 90s mp4 + cover png + subtitle sync check | `type:video priority:p1` | done | solo |
 | P1-04 | Capture AI screenshots and add evidence entries | `type:ai-log priority:p1 proof:ai-bonus` | done | solo |
 | P1-05 | Add chain event verification script + docs | `type:backend priority:p1 proof:onchain` | done | solo |

@@ -51,7 +51,7 @@
 ## Time saved estimate
 - Estimated 70-80% implementation speed-up vs manual from-scratch coding.
 
-## Risk/quality controls
+## Quality controls
 - Rule scoring remains deterministic without AI dependency
 - LLM only explains findings, does not assign score directly
 - Contract tests cover allowlist, bounds, and revocation
@@ -59,6 +59,15 @@
 - Browser-level E2E smoke verifies core demo path before submission
 - Onchain event decoding validates emitted facts against expected fields
 - One-command real-flow verification outputs auditable artifact in `docs/verification/`
+- Secret scanning (`gitleaks`) is integrated in local and CI workflows
+
+## Failure case corrections
+- Failure: keyframe rendering previously produced metadata-only placeholders when Banana endpoint was absent
+  Correction: added Gemini image generation fallback and recorded provider/status fields per frame.
+- Failure: proof references drifted across README, judge packet, and submission files
+  Correction: added `sync-proof` automation and `release:prepare` orchestration to enforce single-source proof updates.
+- Failure: local-only demo links reduced judge confidence in quick verification
+  Correction: switched judge-facing docs to public demo/API URLs and centralized release URL variables.
 
 ## Evidence checklist (target)
 - [x] >=12 traceable records in `docs/ai-log/` (`TRACE_LOG.md`)

@@ -1,9 +1,11 @@
 {
   "id": "scene-01-problem",
   "purpose": "opening threat context",
-  "generatedAt": "2026-02-13T05:24:03.367Z",
+  "generatedAt": "2026-02-14T03:29:15.870Z",
   "promptBase": "Cinematic cyber safety dashboard, BNB yellow and black warning palette, plugin supply chain risk, high contrast, clean typography, widescreen 16:9",
-  "promptOptimized": "Cinematic high-tech cybersecurity dashboard interface, intricate data visualization of a digital supply chain network, interconnected nodes with highlighted risk vulnerabilities, bold BNB yellow and deep obsidian black warning palette, glowing UI elements, crisp futuristic typography, high contrast lighting, hyper-detailed 8k resolution, Unreal Engine 5 render style, sleek professional aesthetic, widescreen 16:9 aspect ratio.",
-  "provider": "placeholder",
-  "status": "placeholder_only"
+  "promptOptimized": "Cinematic wide-angle shot of a futuristic cybersecurity command center dashboard, high-tech interface visualizing complex plugin supply chain risks, interconnected digital nodes with glowing warning alerts and hazardous data fragments, striking BNB yellow and deep obsidian black color palette, sharp minimalist typography, high contrast lighting with volumetric glows, sleek glass textures, 8k resolution, photorealistic, ultra-detailed UI/UX design, 16:9 aspect ratio.",
+  "provider": "gemini:gemini-3-pro-image-preview",
+  "status": "generated",
+  "aspectRatio": "16:9",
+  "resolution": "2K"
 }

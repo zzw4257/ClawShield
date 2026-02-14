@@ -47,3 +47,27 @@ This file maps complete `Prompt -> Output -> Code -> Result` loops for judges.
   - `media/video/clawshield-demo.mp4`
   - `media/video/clawshield-cover.png`
   - `remotion/public/subtitles/clawshield.srt`
+
+## Loop 5: Proof synchronization and release automation
+
+- Prompt: `docs/ai-log/prompts/prompt-01-architecture.md`
+- Output: `docs/ai-log/outputs/output-02-api-shape.md`
+- Code:
+  - `apps/api/scripts/sync-proof-references.ts`
+  - `apps/api/scripts/release-prepare.ts`
+  - `apps/api/scripts/verify-attestation-event.ts`
+- Result:
+  - `docs/PROOF_INDEX.md` and `docs/JUDGE_PACKET.md` stay aligned with one tx/contract source
+  - `docs/DORAHACKS_SUBMISSION_FINAL.md` regenerated from synced values
+
+## Loop 6: Secret hygiene and CI enforcement
+
+- Prompt: `docs/ai-log/prompts/prompt-04-attestation-policy.md`
+- Output: `docs/ai-log/outputs/output-03-risk-dimensions.md`
+- Code:
+  - `.gitleaks.toml`
+  - `scripts/security-scan.sh`
+  - `.github/workflows/secret-scan.yml`
+- Result:
+  - `npm run security:scan` provides local secret leak gate
+  - CI fails fast on leaked credentials before merge/release
