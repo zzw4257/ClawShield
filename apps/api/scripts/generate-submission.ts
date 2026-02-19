@@ -212,7 +212,7 @@ async function main() {
   const config = loadConfig(configPath);
   const contractAddress = getArg(args, "contractAddress") || process.env.CLAWSHIELD_CONTRACT_ADDRESS || "";
   const txHash = getArg(args, "txHash") || process.env.SUBMISSION_TX_HASH || "";
-  const explorerBase = getArg(args, "explorerBase") || "https://opbnb-testnet-scan.bnbchain.org";
+  const explorerBase = getArg(args, "explorerBase") || "https://testnet.opbnbscan.com";
   const repoUrl = getArg(args, "repoUrl") || process.env.RELEASE_REPO_URL;
   const demoUrl = getArg(args, "demoUrl") || process.env.RELEASE_DEMO_URL;
   const videoUrl = getArg(args, "videoUrl") || process.env.RELEASE_VIDEO_URL;

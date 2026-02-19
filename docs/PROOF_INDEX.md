@@ -3,9 +3,9 @@
 ## Onchain Facts
 
 - Contract Address: `0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
-- Contract Explorer: `https://opbnb-testnet-scan.bnbchain.org/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
+- Contract Explorer: `https://testnet.opbnbscan.com/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
 - Submission TX Hash: `0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
-- TX Explorer: `https://opbnb-testnet-scan.bnbchain.org/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
+- TX Explorer: `https://testnet.opbnbscan.com/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
 
 ## Verification Commands
 

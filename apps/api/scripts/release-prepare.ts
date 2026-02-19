@@ -84,7 +84,7 @@ async function main() {
   const demoUrl = getArg(args, "demoUrl") || process.env.RELEASE_DEMO_URL;
   const videoUrl = getArg(args, "videoUrl") || process.env.RELEASE_VIDEO_URL;
   const apiHealthUrl = getArg(args, "apiHealthUrl") || process.env.RELEASE_API_HEALTH_URL;
-  const explorerBase = getArg(args, "explorerBase") || "https://opbnb-testnet-scan.bnbchain.org";
+  const explorerBase = getArg(args, "explorerBase") || "https://testnet.opbnbscan.com";
 
   await run("npm", [
     "run",

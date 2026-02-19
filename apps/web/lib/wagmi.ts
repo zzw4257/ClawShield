@@ -18,7 +18,7 @@ const opbnbTestnet = defineChain({
   blockExplorers: {
     default: {
       name: "opBNBScan",
-      url: "https://opbnb-testnet-scan.bnbchain.org"
+      url: "https://testnet.opbnbscan.com"
     }
   }
 });

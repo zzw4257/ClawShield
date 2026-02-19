@@ -1,6 +1,6 @@
 const DEFAULT_CONTRACT = "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9";
 const DEFAULT_TX = "0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77";
-const EXPLORER_BASE = "https://opbnb-testnet-scan.bnbchain.org";
+const EXPLORER_BASE = "https://testnet.opbnbscan.com";
 
 export const PROOF = {
   contractAddress: process.env.NEXT_PUBLIC_CLAWSHIELD_CONTRACT_ADDRESS || DEFAULT_CONTRACT,

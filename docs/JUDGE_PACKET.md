@@ -20,7 +20,7 @@ npm run verify:event --workspace @clawshield/api -- --txHash 0x7c4b2c3d5bb8dd1aa
 ## 3) Where To Check
 
 - API health: `https://clawshield-api.onrender.com/api/health`
-- Web: `https://clawshield.vercel.app`
+- Web: `https://claw-shield-web.vercel.app`
 - Flow artifact: `docs/verification/flow-latest.json`
 - Event artifact: `docs/verification/event-latest.json`
 - Verification status: `docs/verification/STATUS.md`

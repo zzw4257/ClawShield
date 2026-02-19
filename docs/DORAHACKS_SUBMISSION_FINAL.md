@@ -28,13 +28,13 @@ ClawShield audits a GitHub repo plus commit SHA, produces a reproducible risk re
 
 ## Onchain Proof
 - Contract Address: 0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9
-- Explorer (Contract): https://opbnb-testnet-scan.bnbchain.org/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9
+- Explorer (Contract): https://testnet.opbnbscan.com/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9
 - Proof TX Hash: 0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77
-- Explorer (TX): https://opbnb-testnet-scan.bnbchain.org/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77
+- Explorer (TX): https://testnet.opbnbscan.com/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77
 
 ## Links
 - Repository: https://github.com/zzw4257/ClawShield
-- Demo: https://clawshield.vercel.app
+- Demo: https://claw-shield-web.vercel.app
 - Video: media/video/clawshield-demo.mp4
 
 ## Reproducibility

@@ -10,6 +10,8 @@ services:
         value: "8787"
       - key: NEXT_PUBLIC_API_URL
         value: https://clawshield-api.onrender.com
+      - key: PUBLIC_API_BASE_URL
+        value: https://clawshield-api.onrender.com
       - key: DB_PATH
         value: /var/data/clawshield.db
       - key: OPBNB_TESTNET_RPC_URL
@@ -25,4 +27,4 @@ services:
       - key: LLM_MODEL
         sync: false
       - key: CORS_ALLOWED_ORIGINS
-        value: https://clawshield.vercel.app
+        value: https://claw-shield-web.vercel.app

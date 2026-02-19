@@ -28,9 +28,9 @@ Core policy:
 ## Onchain Proof
 
 - Contract: `0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
-- Contract explorer: `https://opbnb-testnet-scan.bnbchain.org/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
+- Contract explorer: `https://testnet.opbnbscan.com/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
 - Proof tx: `0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
-- TX explorer: `https://opbnb-testnet-scan.bnbchain.org/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
+- TX explorer: `https://testnet.opbnbscan.com/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
 
 ## Reproducibility
 
@@ -63,4 +63,4 @@ npm run verify:all
 ## Links
 
 - Repository: `https://github.com/zzw4257/ClawShield`
-- Demo URL: `https://clawshield.vercel.app`
+- Demo URL: `https://claw-shield-web.vercel.app`

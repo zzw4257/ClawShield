@@ -93,7 +93,7 @@ function printUsage(): void {
   npm run verify:flow --workspace @clawshield/api -- [options]
 
 Options:
-  --baseUrl <url>               API base URL (default: NEXT_PUBLIC_API_URL or http://localhost:8787)
+  --baseUrl <url>               API base URL (default: PUBLIC_API_BASE_URL or NEXT_PUBLIC_API_URL or http://localhost:8787)
   --repoUrl <url>               Repo URL to audit
   --commitSha <sha>             Commit SHA to audit
   --maxWaitMs <ms>              Max wait for audit completion (default: 120000)
@@ -128,7 +128,11 @@ async function main() {
     return;
   }
 
-  const baseUrl = getArg(args, "baseUrl") || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
+  const baseUrl =
+    getArg(args, "baseUrl") ||
+    process.env.PUBLIC_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_API_URL ||
+    "http://localhost:8787";
   const repoUrl = getArg(args, "repoUrl") || "https://github.com/octocat/Hello-World";
   const commitSha = getArg(args, "commitSha") || "7fd1a60b01f91b314f59955a4e4d4e80d8edf11d";
   const maxWaitMs = getNumArg(args, "maxWaitMs", 120_000);

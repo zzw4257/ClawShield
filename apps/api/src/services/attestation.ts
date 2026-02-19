@@ -19,7 +19,7 @@ const opbnbTestnet = defineChain({
   blockExplorers: {
     default: {
       name: "opBNBScan",
-      url: "https://opbnb-testnet-scan.bnbchain.org"
+      url: "https://testnet.opbnbscan.com"
     }
   }
 });
@@ -59,11 +59,10 @@ export async function submitAttestationOnchain(input: {
     throw new Error("Missing PRIVATE_KEY or CLAWSHIELD_CONTRACT_ADDRESS in .env");
   }
 
-  const normalizedPrivateKey = env.attesterPrivateKey.startsWith("0x")
-    ? env.attesterPrivateKey
-    : `0x${env.attesterPrivateKey}`;
+  const normalizedPrivateKey = normalizePrivateKey(env.attesterPrivateKey);
+  const normalizedContractAddress = normalizeContractAddress(env.contractAddress);
 
-  const account = privateKeyToAccount(normalizedPrivateKey as `0x${string}`);
+  const account = privateKeyToAccount(normalizedPrivateKey);
 
   const publicClient = createPublicClient({
     chain: opbnbTestnet,
@@ -79,7 +78,7 @@ export async function submitAttestationOnchain(input: {
   const txHash = await walletClient.writeContract({
     account,
     chain: opbnbTestnet,
-    address: env.contractAddress as `0x${string}`,
+    address: normalizedContractAddress,
     abi: ABI,
     functionName: "attest",
     args: [
@@ -98,8 +97,28 @@ export async function submitAttestationOnchain(input: {
   return {
     txHash,
     chainId: opbnbTestnet.id,
-    contractAddress: env.contractAddress,
+    contractAddress: normalizedContractAddress,
     attester: account.address,
     blockTime: Number(block.timestamp)
   };
+}
+
+function normalizePrivateKey(raw: string): `0x${string}` {
+  const trimmed = raw.trim().replace(/^['"]|['"]$/g, "");
+  const withPrefix = trimmed.startsWith("0x") ? trimmed : `0x${trimmed}`;
+  if (!/^0x[0-9a-fA-F]{64}$/.test(withPrefix)) {
+    const hexLength = withPrefix.slice(2).length;
+    throw new Error(
+      `Invalid PRIVATE_KEY format: expected 64 hex chars (32 bytes), got ${hexLength}.`
+    );
+  }
+  return withPrefix as `0x${string}`;
+}
+
+function normalizeContractAddress(raw: string): `0x${string}` {
+  const trimmed = raw.trim();
+  if (!/^0x[0-9a-fA-F]{40}$/.test(trimmed)) {
+    throw new Error("Invalid CLAWSHIELD_CONTRACT_ADDRESS format: expected 0x + 40 hex chars.");
+  }
+  return trimmed as `0x${string}`;
 }

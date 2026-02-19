@@ -117,7 +117,7 @@ const opbnbTestnet = defineChain({
     }
   },
   blockExplorers: {
-    default: { name: "opBNBScan", url: "https://opbnb-testnet-scan.bnbchain.org" }
+    default: { name: "opBNBScan", url: "https://testnet.opbnbscan.com" }
   }
 });
 
@@ -507,7 +507,11 @@ async function runCase(input: {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const baseUrl = getArg(args, "baseUrl") || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
+  const baseUrl =
+    getArg(args, "baseUrl") ||
+    process.env.PUBLIC_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_API_URL ||
+    "http://localhost:8787";
   const auditTimeoutMs = getNumArg(args, "maxWaitMs", 240_000);
   const pollMs = getNumArg(args, "pollMs", 2_000);
 

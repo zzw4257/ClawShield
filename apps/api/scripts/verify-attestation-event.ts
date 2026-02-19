@@ -19,7 +19,7 @@ const opbnbTestnet = defineChain({
     default: { http: [process.env.OPBNB_TESTNET_RPC_URL || "https://opbnb-testnet-rpc.bnbchain.org"] }
   },
   blockExplorers: {
-    default: { name: "opBNBScan", url: "https://opbnb-testnet-scan.bnbchain.org" }
+    default: { name: "opBNBScan", url: "https://testnet.opbnbscan.com" }
   }
 });
 

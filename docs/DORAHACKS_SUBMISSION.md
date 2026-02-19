@@ -23,7 +23,7 @@ ClawShield audits a GitHub repo + commit SHA, outputs deterministic risk finding
 
 ## Onchain Proof
 - Contract: `0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
-- Explorer: `https://opbnb-testnet-scan.bnbchain.org/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
+- Explorer: `https://testnet.opbnbscan.com/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
 - Tx hash: `0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
 
 ## Reproducibility

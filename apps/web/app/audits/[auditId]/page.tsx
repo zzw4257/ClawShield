@@ -129,7 +129,7 @@ export default function AuditDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAttesting, setIsAttesting] = useState(false);
   const [attestationState, setAttestationState] = useState<AttestationState>({ kind: "idle" });
-  const explorerBase = "https://opbnb-testnet-scan.bnbchain.org";
+  const explorerBase = "https://testnet.opbnbscan.com";
 
   const shouldPoll = useMemo(() => {
     if (!audit) return true;

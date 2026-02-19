@@ -102,7 +102,7 @@ async function main() {
   const repoUrl =
     getArg(args, "repoUrl") || process.env.RELEASE_REPO_URL || "https://github.com/zzw4257/ClawShield";
   const demoUrl =
-    getArg(args, "demoUrl") || process.env.RELEASE_DEMO_URL || "https://clawshield.vercel.app";
+    getArg(args, "demoUrl") || process.env.RELEASE_DEMO_URL || "https://claw-shield-web.vercel.app";
   const videoUrl =
     getArg(args, "videoUrl") || process.env.RELEASE_VIDEO_URL || "media/video/clawshield-demo.mp4";
   const apiHealthUrl =
@@ -110,7 +110,7 @@ async function main() {
     process.env.RELEASE_API_HEALTH_URL ||
     "https://clawshield-api.onrender.com/api/health";
   const explorerBase =
-    getArg(args, "explorerBase") || "https://opbnb-testnet-scan.bnbchain.org";
+    getArg(args, "explorerBase") || "https://testnet.opbnbscan.com";
 
   const contractExplorer = `${explorerBase}/address/${contractAddress}`;
   const txExplorer = `${explorerBase}/tx/${txHash}`;

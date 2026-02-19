@@ -9,8 +9,8 @@ export const VIDEO_V2_DATA: VideoV2Manifest = {
     "chainId": 5611,
     "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9",
     "txHash": "0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77",
-    "contractExplorer": "https://opbnb-testnet-scan.bnbchain.org/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9",
-    "txExplorer": "https://opbnb-testnet-scan.bnbchain.org/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77"
+    "contractExplorer": "https://testnet.opbnbscan.com/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9",
+    "txExplorer": "https://testnet.opbnbscan.com/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77"
   },
   "cases": [
     {
@@ -131,7 +131,7 @@ export const VIDEO_V2_DATA: VideoV2Manifest = {
   },
   "urls": {
     "repoUrl": "https://github.com/zzw4257/ClawShield",
-    "demoUrl": "https://clawshield.vercel.app",
+    "demoUrl": "https://claw-shield-web.vercel.app",
     "videoUrl": "media/video/clawshield-demo-v2.mp4",
     "apiHealthUrl": "http://localhost:8787/api/health"
   },

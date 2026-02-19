@@ -7,11 +7,11 @@ Commit-bound security attestation for OpenClaw skills. ClawShield audits a speci
 - Track: `Agent`
 - Network: `opBNB Testnet (chainId 5611)`
 - Contract Address: `0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
-- Contract Explorer: `https://opbnb-testnet-scan.bnbchain.org/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
+- Contract Explorer: `https://testnet.opbnbscan.com/address/0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9`
 - Proof TX: `0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
-- TX Explorer: `https://opbnb-testnet-scan.bnbchain.org/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
+- TX Explorer: `https://testnet.opbnbscan.com/tx/0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77`
 - 1-line Value: `Audit -> explain -> attest -> query` for one exact commit fingerprint.
-- Live Demo: `https://clawshield.vercel.app`
+- Live Demo: `https://claw-shield-web.vercel.app`
 - API Health: `https://clawshield-api.onrender.com/api/health`
 - Video: `media/video/clawshield-demo.mp4`
 
@@ -126,7 +126,7 @@ npm run cases:verify
 npm run release:check
 npm run verify:flow --workspace @clawshield/api
 npm run proof:refresh --workspace @clawshield/api
-npm run release:sync-proof -- --contractAddress <0x...> --txHash <0x...> --repoUrl https://github.com/zzw4257/ClawShield --demoUrl https://clawshield.vercel.app --videoUrl media/video/clawshield-demo.mp4
+npm run release:sync-proof -- --contractAddress <0x...> --txHash <0x...> --repoUrl https://github.com/zzw4257/ClawShield --demoUrl https://claw-shield-web.vercel.app --videoUrl media/video/clawshield-demo.mp4
 npm run release:prepare -- --contractAddress <0x...> --txHash <0x...>
 ```
 

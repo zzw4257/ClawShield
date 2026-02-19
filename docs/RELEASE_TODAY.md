@@ -28,7 +28,7 @@ npm run release:sync-proof -- \
   --contractAddress <0x...> \
   --txHash <0x...> \
   --repoUrl https://github.com/zzw4257/ClawShield \
-  --demoUrl https://clawshield.vercel.app \
+  --demoUrl https://claw-shield-web.vercel.app \
   --videoUrl media/video/clawshield-demo.mp4
 ```
 
