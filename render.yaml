@@ -6,6 +6,8 @@ services:
     buildCommand: npm install && npm run build --workspace @clawshield/shared-types && npm run build --workspace @clawshield/api
     startCommand: npm run start --workspace @clawshield/api
     envVars:
+      - key: NODE_VERSION
+        value: "22"
       - key: BACKEND_PORT
         value: "8787"
       - key: NEXT_PUBLIC_API_URL
@@ -13,7 +15,7 @@ services:
       - key: PUBLIC_API_BASE_URL
         value: https://clawshield-api.onrender.com
       - key: DB_PATH
-        value: /var/data/clawshield.db
+        value: ./apps/api/data/clawshield.db
       - key: OPBNB_TESTNET_RPC_URL
         sync: false
       - key: PRIVATE_KEY

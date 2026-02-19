@@ -12,7 +12,7 @@
    - `BACKEND_PORT=8787`
    - `NEXT_PUBLIC_API_URL=https://clawshield-api.onrender.com`
    - `PUBLIC_API_BASE_URL=https://clawshield-api.onrender.com`
-   - `DB_PATH=/var/data/clawshield.db`
+   - `DB_PATH=./apps/api/data/clawshield.db` (free plan safe)
    - `OPBNB_TESTNET_RPC_URL`
    - `PRIVATE_KEY=0x...` (must be 32-byte hex)
    - `CLAWSHIELD_CONTRACT_ADDRESS`
@@ -20,11 +20,13 @@
    - `LLM_API_KEY`
    - `LLM_MODEL`
    - `CORS_ALLOWED_ORIGINS=https://claw-shield-web.vercel.app,https://<your-custom-domain>`
+   - `NODE_VERSION=22`
 6. Verify health endpoint:
    - `https://clawshield-api.onrender.com/api/health`
 7. Verify audit output links:
    - Start any audit and confirm returned `reportUrl` uses `https://clawshield-api.onrender.com/...`, not `localhost`.
    - If `PUBLIC_API_BASE_URL` is omitted, backend will fallback to `RENDER_EXTERNAL_URL` when available.
+   - If you want persistent DB across restarts, attach a Render Disk and then switch `DB_PATH` to mounted path such as `/var/data/clawshield.db`.
 
 ## 2) Vercel Web Deployment
 
