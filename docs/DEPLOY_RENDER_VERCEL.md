@@ -6,7 +6,7 @@
 2. Runtime: `Node`.
 3. Root Directory: keep empty (repository root).
 4. Use `render.yaml` or set commands manually:
-   - Build: `npm install && npm run build --workspace @clawshield/shared-types && npm run build --workspace @clawshield/api`
+   - Build: `npm install && npm rebuild better-sqlite3 --workspace @clawshield/api && npm run build --workspace @clawshield/shared-types && npm run build --workspace @clawshield/api`
    - Start: `npm run start --workspace @clawshield/api`
 5. Set environment variables:
    - `BACKEND_PORT=8787`
@@ -23,6 +23,7 @@
    - `NODE_VERSION=22`
 6. Verify health endpoint:
    - `https://clawshield-api.onrender.com/api/health`
+   - If you switched Node version recently and see `NODE_MODULE_VERSION` mismatch, run `Clear build cache & deploy latest commit` once.
 7. Verify audit output links:
    - Start any audit and confirm returned `reportUrl` uses `https://clawshield-api.onrender.com/...`, not `localhost`.
    - If `PUBLIC_API_BASE_URL` is omitted, backend will fallback to `RENDER_EXTERNAL_URL` when available.

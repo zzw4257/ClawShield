@@ -3,7 +3,7 @@ services:
     name: clawshield-api
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build --workspace @clawshield/shared-types && npm run build --workspace @clawshield/api
+    buildCommand: npm install && npm rebuild better-sqlite3 --workspace @clawshield/api && npm run build --workspace @clawshield/shared-types && npm run build --workspace @clawshield/api
     startCommand: npm run start --workspace @clawshield/api
     envVars:
       - key: NODE_VERSION
