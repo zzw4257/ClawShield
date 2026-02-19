@@ -1,0 +1,89 @@
+{
+  "startedAt": "2026-02-18T07:10:42.509Z",
+  "config": {
+    "baseUrl": "http://localhost:8787",
+    "repoUrl": "https://github.com/octocat/Hello-World",
+    "commitSha": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11d",
+    "maxWaitMs": 120000,
+    "pollMs": 1500,
+    "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9"
+  },
+  "health": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "status": "ok"
+    }
+  },
+  "startAudit": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "auditId": "e0828611-d6d2-4a69-a6f1-2a452cb48a59",
+      "status": "queued"
+    }
+  },
+  "polls": {
+    "count": 7,
+    "statuses": [
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "done"
+    ]
+  },
+  "audit": {
+    "status": "done",
+    "fingerprint": "0xe89688d203c73e040cca08740fc43c998fdbeba4d144b2c627a8a96dc6d38796",
+    "score": 0,
+    "level": "green",
+    "reportUrl": "http://localhost:8787/api/reports/5b3ffe58-85b6-45c0-b6a9-7ca072df836a",
+    "reportHash": "0xa2be33506e19fe775f8e81b8f54c3ca0c63a1d2017e82f3a0775ef934767e464",
+    "findings": [],
+    "llmSummary": "## Overview\n- **Repo:** https://github.com/octocat/Hello-World  \n- **Commit:** `7fd1a60b01f91b314f59955a4e4d4e80d8edf11d`  \n- **Audit result:** **Green** (score **0**)  \n- **Findings provided:** **0**\n\n## Top risks\n- **No concrete risks identified** based on the provided findings list.\n- **Residual risk (process/data quality):** An empty findings array may indicate *either* a clean commit *or* that scanning rules/tools didn’t run, didn’t cover the code, or weren’t configured to detect relevant issues.\n\n## Fix priorities\n1. **Validate coverage of the audit**\n   - Confirm what scanners/rulesets were executed (SAST, secret scanning, dependency/SBOM, IaC/container checks) and that they ran successfully on this commit.\n2. **Add/confirm CI security gates**\n   - Ensure CI enforces: dependency vulnerability scanning, secret scanning, and basic SAST on PRs/commits.\n3. **Baseline security hygiene**\n   - If applicable to the repo: enable branch protection, required reviews, signed commits, least-privilege tokens, and dependency update automation.\n\nIf you share the tool output or scan configuration used to produce this JSON, I can assess whether “0 findings” is credible coverage or a gap."
+  },
+  "reportFetch": {
+    "ok": true,
+    "status": 200,
+    "reportId": "5b3ffe58-85b6-45c0-b6a9-7ca072df836a",
+    "level": "green",
+    "score": 0
+  },
+  "attestFirst": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "txHash": "0xdc024ea0f6258bc9c2e836d7ce683831b2b24a610323aba48f07f65959e2b8b8",
+      "chainId": 5611,
+      "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9"
+    }
+  },
+  "attestSecond": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "txHash": "0xdc024ea0f6258bc9c2e836d7ce683831b2b24a610323aba48f07f65959e2b8b8",
+      "chainId": 5611,
+      "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9",
+      "reused": true
+    }
+  },
+  "attestationList": {
+    "ok": true,
+    "status": 200,
+    "latestTx": "0xdc024ea0f6258bc9c2e836d7ce683831b2b24a610323aba48f07f65959e2b8b8",
+    "historyCount": 7
+  },
+  "assertions": {
+    "auditDone": true,
+    "levelIsGreen": true,
+    "firstTxPresent": true,
+    "secondReused": true,
+    "secondTxMatchesFirst": true,
+    "latestMatchesFirst": true
+  },
+  "finishedAt": "2026-02-18T07:10:57.416Z"
+}

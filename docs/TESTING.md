@@ -66,6 +66,21 @@ Coverage focus:
 - audit submission redirect flow
 - audit detail render + attestation trigger state
 
+## Concrete local casebook verification
+
+```bash
+npm run cases:pin
+npm run cases:run
+npm run cases:capture
+npm run cases:verify
+```
+
+Coverage focus:
+- 3-case registry is pinned and reusable
+- green baseline case returns real tx + event artifact
+- risk cases are denied by policy and produce refusal evidence
+- each case writes JSON and screenshot artifacts
+
 ## Onchain event verification
 
 ```bash
@@ -107,6 +122,22 @@ Outputs:
 - `docs/verification/flow-latest.json`
 - `docs/verification/event-latest.json`
 - `docs/verification/STATUS.md`
+
+`STATUS.md` includes:
+- `Latest Verify Tx Hash` (from the latest live proof run)
+- `Submission Tx Hash (env)` (canonical submission proof from `.env`)
+
+## Release consistency gate
+
+```bash
+npm run release:check
+```
+
+This checks:
+- proof tuple consistency across `README`, `JUDGE_PACKET`, `PROOF_INDEX`, and `DORAHACKS_SUBMISSION_FINAL`
+- required artifacts exist (`flow/event/casebook/showcase/video`)
+- latest case run and verify reports are passed
+- no placeholder terms remain in judge-facing docs
 
 ## Media validation
 

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-02-19T03:55:36.952Z",
+  "copied": {
+    "cases": {
+      "clean_baseline": [
+        "v3/cases/clean_baseline/attest.json",
+        "v3/cases/clean_baseline/audit.json",
+        "v3/cases/clean_baseline/audit.png",
+        "v3/cases/clean_baseline/event.json",
+        "v3/cases/clean_baseline/fingerprint.png",
+        "v3/cases/clean_baseline/flow.json",
+        "v3/cases/clean_baseline/home.png",
+        "v3/cases/clean_baseline/report.json"
+      ],
+      "credential_access_risk": [
+        "v3/cases/credential_access_risk/attest.json",
+        "v3/cases/credential_access_risk/audit.json",
+        "v3/cases/credential_access_risk/audit.png",
+        "v3/cases/credential_access_risk/fingerprint.png",
+        "v3/cases/credential_access_risk/flow.json",
+        "v3/cases/credential_access_risk/home.png",
+        "v3/cases/credential_access_risk/report.json"
+      ],
+      "remote_execution_risk": [
+        "v3/cases/remote_execution_risk/attest.json",
+        "v3/cases/remote_execution_risk/audit.json",
+        "v3/cases/remote_execution_risk/audit.png",
+        "v3/cases/remote_execution_risk/fingerprint.png",
+        "v3/cases/remote_execution_risk/flow.json",
+        "v3/cases/remote_execution_risk/home.png",
+        "v3/cases/remote_execution_risk/report.json"
+      ]
+    },
+    "aiScreenshots": [
+      "v3/ai-log/screenshots/shot-01.png",
+      "v3/ai-log/screenshots/shot-02.png",
+      "v3/ai-log/screenshots/shot-03.png",
+      "v3/ai-log/screenshots/shot-04.png",
+      "v3/ai-log/screenshots/shot-05.png",
+      "v3/ai-log/screenshots/shot-06.png"
+    ],
+    "keyframes": [
+      "v3/keyframes/scene-01-problem.png",
+      "v3/keyframes/scene-02-scan.png",
+      "v3/keyframes/scene-03-onchain-proof.png",
+      "v3/keyframes/scene-04-hero.png"
+    ],
+    "evidence": [
+      "v3/evidence/event-latest.json",
+      "v3/evidence/flow-latest.json",
+      "v3/evidence/case-registry.lock.json",
+      "v3/evidence/run-latest.json",
+      "v3/evidence/verify-latest.json"
+    ]
+  }
+}

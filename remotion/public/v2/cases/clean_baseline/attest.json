@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "status": 200,
+  "body": {
+    "txHash": "0x8edd560fb3ba17aa8f3f289e23f625ebaa5ccce5c94bf329b881d46190e9d216",
+    "chainId": 5611,
+    "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9"
+  }
+}

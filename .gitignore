@@ -18,6 +18,8 @@ playwright-report
 test-results
 apps/web/test-results
 apps/web/playwright-report
+output/
+apps/api/apps/
 artifacts
 cache
 contracts/artifacts
@@ -33,6 +35,21 @@ media/audio/*.txt
 media/video/*.mp4
 media/video/*.png
 remotion/out
+remotion/.tmp
 *.db
 *.db-shm
 *.db-wal
+
+# Local AI/editor assistant artifacts
+.agent/
+.agents/
+.augment/
+.claude/
+.crush/
+.cursor/
+.iflow/
+.kiro/
+.qoder/
+.trae/
+.windsurf/
+skills/

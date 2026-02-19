@@ -19,6 +19,11 @@
     "security:scan": "bash scripts/security-scan.sh",
     "verify:ci": "npm run test && npm run build && npm run lint --workspace @clawshield/web && npm run test:e2e --workspace @clawshield/web",
     "verify:all": "npm run verify:ci && npm run verify:flow --workspace @clawshield/api",
+    "cases:pin": "npm run cases:pin --workspace @clawshield/api",
+    "cases:run": "npm run cases:run --workspace @clawshield/api",
+    "cases:capture": "npm run cases:capture --workspace @clawshield/web",
+    "cases:verify": "npm run cases:verify --workspace @clawshield/api",
+    "release:check": "npm run release:check --workspace @clawshield/api",
     "release:sync-proof": "npm run sync:proof --workspace @clawshield/api --",
     "release:prepare": "npm run release:prepare --workspace @clawshield/api --",
     "contracts:test": "npm run test --workspace @clawshield/contracts",
@@ -26,6 +31,11 @@
     "contracts:deploy:opbnbTestnet": "npm run deploy:opbnbTestnet --workspace @clawshield/contracts",
     "video:dev": "npm run dev --workspace @clawshield/remotion",
     "video:render": "npm run render --workspace @clawshield/remotion",
+    "video:v2:prepare": "npm run prepare:v2 --workspace @clawshield/remotion && npm run sync:v2 --workspace @clawshield/remotion && npm run subtitles:v2 --workspace @clawshield/remotion",
+    "video:v2:render": "npm run render:v2 --workspace @clawshield/remotion && npm run still:v2 --workspace @clawshield/remotion",
+    "video:v3:prepare": "npm run prepare:v3 --workspace @clawshield/remotion && npm run sync:v3 --workspace @clawshield/remotion && npm run subtitles:v3 --workspace @clawshield/remotion",
+    "video:v3:render": "npm run render:v3 --workspace @clawshield/remotion && npm run still:v3 --workspace @clawshield/remotion",
+    "video:v4:render": "npm run render:v4 --workspace @clawshield/remotion && npm run still:v4 --workspace @clawshield/remotion",
     "images:keyframes": "npm run keyframes --workspace @clawshield/api"
   },
   "engines": {

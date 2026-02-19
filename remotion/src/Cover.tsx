@@ -1,6 +1,6 @@
 import { AbsoluteFill } from "remotion";
 
-export const Cover: React.FC = () => {
+export const Cover = () => {
   return (
     <AbsoluteFill
       style={{

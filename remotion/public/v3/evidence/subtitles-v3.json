@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-02-19T04:46:38.143Z",
+  "fps": 30,
+  "durationFrames": 2664,
+  "cueCount": 7,
+  "outPath": "remotion/public/subtitles/clawshield-v3.srt",
+  "maxLines": 2,
+  "maxCharsPerLine": 94,
+  "cues": [
+    {
+      "id": 1,
+      "fromFrame": 0,
+      "toFrame": 300,
+      "sceneId": "scene1",
+      "text": "OpenClaw skills ship fast, but install-time trust checks are weak. Hidden remote execution and\ncredential reads turn one command into a high-impact risk.",
+      "lines": [
+        "OpenClaw skills ship fast, but install-time trust checks are weak. Hidden remote execution and",
+        "credential reads turn one command into a high-impact risk."
+      ]
+    },
+    {
+      "id": 2,
+      "fromFrame": 300,
+      "toFrame": 684,
+      "sceneId": "scene2",
+      "text": "ClawShield audits one repository commit, runs deterministic scoring, generates AI-readable\nguidance, then binds the outcome with fingerprint and report hash.",
+      "lines": [
+        "ClawShield audits one repository commit, runs deterministic scoring, generates AI-readable",
+        "guidance, then binds the outcome with fingerprint and report hash."
+      ]
+    },
+    {
+      "id": 3,
+      "fromFrame": 684,
+      "toFrame": 1248,
+      "sceneId": "scene3",
+      "text": "The Case Gallery shows three fixed inputs with three reproducible outputs: one green baseline\nand two policy-denied risk cases.",
+      "lines": [
+        "The Case Gallery shows three fixed inputs with three reproducible outputs: one green baseline",
+        "and two policy-denied risk cases."
+      ]
+    },
+    {
+      "id": 4,
+      "fromFrame": 1248,
+      "toFrame": 1722,
+      "sceneId": "scene4",
+      "text": "For green outcomes, attestation on opBNB records score, fingerprint, report hash, repository,\nand commit in one verifiable event.",
+      "lines": [
+        "For green outcomes, attestation on opBNB records score, fingerprint, report hash, repository,",
+        "and commit in one verifiable event."
+      ]
+    },
+    {
+      "id": 5,
+      "fromFrame": 1722,
+      "toFrame": 2166,
+      "sceneId": "scene5",
+      "text": "AI contribution is explicit: prompts, outputs, diffs, and screenshots are linked so judges can\ninspect exactly what AI changed.",
+      "lines": [
+        "AI contribution is explicit: prompts, outputs, diffs, and screenshots are linked so judges can",
+        "inspect exactly what AI changed."
+      ]
+    },
+    {
+      "id": 6,
+      "fromFrame": 2166,
+      "toFrame": 2520,
+      "sceneId": "scene6",
+      "text": "Submission claims map one-to-one to artifacts: onchain proof, reproducible runs, AI build\nevidence, and a strict human-controlled trust boundary.",
+      "lines": [
+        "Submission claims map one-to-one to artifacts: onchain proof, reproducible runs, AI build",
+        "evidence, and a strict human-controlled trust boundary."
+      ]
+    },
+    {
+      "id": 7,
+      "fromFrame": 2520,
+      "toFrame": 2664,
+      "sceneId": "scene7",
+      "text": "ClawShield turns commit risk into a fast and auditable go or no-go decision before\ninstallation.",
+      "lines": [
+        "ClawShield turns commit risk into a fast and auditable go or no-go decision before",
+        "installation."
+      ]
+    }
+  ]
+}

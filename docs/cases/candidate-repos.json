@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "description": "Candidate public repositories used by pin-cases.ts to discover stable demo commits.",
+  "repos": [
+    {
+      "url": "https://github.com/octocat/Hello-World",
+      "maxCommits": 20
+    },
+    {
+      "url": "https://github.com/Homebrew/install",
+      "maxCommits": 40
+    },
+    {
+      "url": "https://github.com/OWASP/NodeGoat",
+      "maxCommits": 40
+    },
+    {
+      "url": "https://github.com/nvm-sh/nvm",
+      "maxCommits": 40
+    },
+    {
+      "url": "https://github.com/SCARPxVeNOM/clawgency",
+      "maxCommits": 30
+    },
+    {
+      "url": "https://github.com/mthdroid/YieldPilot",
+      "maxCommits": 30
+    },
+    {
+      "url": "https://github.com/Tarran6/VibeGuard-AI",
+      "maxCommits": 30
+    }
+  ]
+}

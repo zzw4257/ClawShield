@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-02-18T08:23:35.240Z",
+  "baseUrl": "http://localhost:8787",
+  "registryPath": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/case-registry.lock.json",
+  "cases": [
+    {
+      "caseId": "clean_baseline",
+      "title": "Clean Baseline",
+      "repoUrl": "https://github.com/octocat/Hello-World",
+      "commitSha": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11d",
+      "expected": {
+        "level": "green",
+        "dimensions": [],
+        "attestability": "allowed"
+      },
+      "actual": {
+        "auditId": "90c93df0-8512-4e18-b267-ccc7dfc33f45",
+        "status": "done",
+        "level": "green",
+        "score": 0,
+        "dimensions": [],
+        "attestOk": true,
+        "attestStatus": 200,
+        "txHash": "0x8edd560fb3ba17aa8f3f289e23f625ebaa5ccce5c94bf329b881d46190e9d216"
+      },
+      "assertions": {
+        "auditDone": true,
+        "levelMatch": true,
+        "requiredDimensionsPresent": true,
+        "attestabilityMatch": true,
+        "eventVerified": true
+      },
+      "passed": true,
+      "artifactPaths": {
+        "caseDir": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline",
+        "audit": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/audit.json",
+        "report": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/report.json",
+        "attest": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/attest.json",
+        "flow": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/flow.json",
+        "event": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/event.json",
+        "screenshots": {
+          "home": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/home.png",
+          "audit": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/audit.png",
+          "fingerprint": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/clean_baseline/fingerprint.png"
+        }
+      }
+    },
+    {
+      "caseId": "remote_execution_risk",
+      "title": "Remote Execution Risk",
+      "repoUrl": "https://github.com/Homebrew/install",
+      "commitSha": "5838cadbb2c7beb17c7dcdddb5f0dba6c4780feb",
+      "expected": {
+        "level": "red",
+        "dimensions": [
+          "remote_execution"
+        ],
+        "attestability": "denied"
+      },
+      "actual": {
+        "auditId": "da8fe367-da97-4d0d-a105-f2db5364e1a5",
+        "status": "done",
+        "level": "red",
+        "score": 99,
+        "dimensions": [
+          "remote_execution",
+          "credential_access",
+          "suspicious_network",
+          "permission_mismatch"
+        ],
+        "attestOk": false,
+        "attestStatus": 400,
+        "attestError": "Only green reports are eligible for attestation"
+      },
+      "assertions": {
+        "auditDone": true,
+        "levelMatch": true,
+        "requiredDimensionsPresent": true,
+        "attestabilityMatch": true,
+        "eventVerified": true
+      },
+      "passed": true,
+      "artifactPaths": {
+        "caseDir": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk",
+        "audit": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk/audit.json",
+        "report": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk/report.json",
+        "attest": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk/attest.json",
+        "flow": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk/flow.json",
+        "screenshots": {
+          "home": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk/home.png",
+          "audit": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk/audit.png",
+          "fingerprint": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/remote_execution_risk/fingerprint.png"
+        }
+      }
+    },
+    {
+      "caseId": "credential_access_risk",
+      "title": "Credential Access Risk",
+      "repoUrl": "https://github.com/OWASP/NodeGoat",
+      "commitSha": "c5cb68a7084e4ae7dcc60e6a98768720a81841e8",
+      "expected": {
+        "level": "yellow",
+        "dimensions": [
+          "credential_access"
+        ],
+        "attestability": "denied"
+      },
+      "actual": {
+        "auditId": "df2f91e0-b95f-4e60-b78a-86d87b7d7b57",
+        "status": "done",
+        "level": "yellow",
+        "score": 63,
+        "dimensions": [
+          "credential_access",
+          "obfuscation"
+        ],
+        "attestOk": false,
+        "attestStatus": 400,
+        "attestError": "Only green reports are eligible for attestation"
+      },
+      "assertions": {
+        "auditDone": true,
+        "levelMatch": true,
+        "requiredDimensionsPresent": true,
+        "attestabilityMatch": true,
+        "eventVerified": true
+      },
+      "passed": true,
+      "artifactPaths": {
+        "caseDir": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk",
+        "audit": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk/audit.json",
+        "report": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk/report.json",
+        "attest": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk/attest.json",
+        "flow": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk/flow.json",
+        "screenshots": {
+          "home": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk/home.png",
+          "audit": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk/audit.png",
+          "fingerprint": "/Users/zzw4257/Documents/ZJU_archieve/08-AI之路/2-16-Good-Vibes-Only/docs/cases/artifacts/credential_access_risk/fingerprint.png"
+        }
+      }
+    }
+  ],
+  "passed": true
+}

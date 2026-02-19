@@ -115,7 +115,7 @@ const sceneText: Record<string, { title: string; body: string }> = {
   }
 };
 
-export const ClawShieldDemo: React.FC = () => {
+export const ClawShieldDemo = () => {
   return (
     <AbsoluteFill>
       {scenes.map((scene) => (

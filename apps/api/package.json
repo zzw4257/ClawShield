@@ -12,7 +12,11 @@
     "verify:event": "tsx scripts/verify-attestation-event.ts",
     "submission:generate": "tsx scripts/generate-submission.ts",
     "verify:flow": "tsx scripts/verify-flow.ts",
+    "cases:pin": "tsx scripts/pin-cases.ts",
+    "cases:run": "tsx scripts/run-cases.ts",
+    "cases:verify": "tsx scripts/verify-cases.ts",
     "proof:refresh": "tsx scripts/proof-refresh.ts",
+    "release:check": "tsx scripts/release-check.ts",
     "sync:proof": "tsx scripts/sync-proof-references.ts",
     "release:prepare": "tsx scripts/release-prepare.ts"
   },

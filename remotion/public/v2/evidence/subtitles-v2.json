@@ -1,0 +1,58 @@
+{
+  "generatedAt": "2026-02-18T16:45:03.075Z",
+  "fps": 30,
+  "durationFrames": 2664,
+  "cueCount": 7,
+  "outPath": "remotion/public/subtitles/clawshield-v2.srt",
+  "cues": [
+    {
+      "id": 1,
+      "fromFrame": 0,
+      "toFrame": 300,
+      "sceneId": "scene1",
+      "text": "OpenClaw skills move fast, but trust checks usually happen too late. Attackers hide remote execution and credential reads behind normal install instructions."
+    },
+    {
+      "id": 2,
+      "fromFrame": 300,
+      "toFrame": 684,
+      "sceneId": "scene2",
+      "text": "ClawShield takes one repo and one commit, then runs deterministic scoring, AI explanation, and commit-bound hashing. The output becomes a clear allow or deny policy decision."
+    },
+    {
+      "id": 3,
+      "fromFrame": 684,
+      "toFrame": 1248,
+      "sceneId": "scene3",
+      "text": "The Case Gallery proves behavior with three concrete inputs: a clean baseline, a remote execution risk, and a credential access risk. Same pipeline, different verifiable outcomes."
+    },
+    {
+      "id": 4,
+      "fromFrame": 1248,
+      "toFrame": 1722,
+      "sceneId": "scene4",
+      "text": "Only green outcomes can attest on opBNB testnet. The transaction event stores fingerprint, score, report hash, repo, and commit so judges can independently verify every field."
+    },
+    {
+      "id": 5,
+      "fromFrame": 1722,
+      "toFrame": 2166,
+      "sceneId": "scene5",
+      "text": "AI contribution is not hand-waved. We keep prompt, output, code diff, and screenshot loops to show exactly where AI accelerated delivery and where human control stayed in place."
+    },
+    {
+      "id": 6,
+      "fromFrame": 2166,
+      "toFrame": 2520,
+      "sceneId": "scene6",
+      "text": "Competition requirements map directly to artifacts: onchain proof, reproducible case runs, and AI evidence. What we claim in docs is exactly what the product and chain report."
+    },
+    {
+      "id": 7,
+      "fromFrame": 2520,
+      "toFrame": 2664,
+      "sceneId": "scene7",
+      "text": "Result: faster shipping, with auditable trust boundaries before installation."
+    }
+  ]
+}

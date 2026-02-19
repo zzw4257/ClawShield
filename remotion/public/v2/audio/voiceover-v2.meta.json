@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-02-18T16:44:36.620Z",
+  "provider": "fallback-openai-compatible",
+  "model": "system-say",
+  "voice": "Samantha",
+  "durationSec": 88.764082,
+  "expectedDurationSec": 88.8,
+  "fallbackReason": "network error on gemini-2.5-flash-preview-tts: TypeError: fetch failed",
+  "transcriptPath": "remotion/public/v2/audio/clawshield-voiceover-v2.txt"
+}

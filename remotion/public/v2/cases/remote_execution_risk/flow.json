@@ -1,0 +1,152 @@
+{
+  "startedAt": "2026-02-18T08:19:09.229Z",
+  "finishedAt": "2026-02-18T08:19:29.229Z",
+  "caseId": "remote_execution_risk",
+  "start": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "auditId": "da8fe367-da97-4d0d-a105-f2db5364e1a5",
+      "status": "queued"
+    }
+  },
+  "pollCount": 10,
+  "statuses": [
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "done"
+  ],
+  "audit": {
+    "status": "done",
+    "fingerprint": "0x1b2de516d9e09f0bed70f2d1951236c45eb7f762a47348a2ed66cc06ea1e3a94",
+    "score": 99,
+    "level": "red",
+    "reportUrl": "http://localhost:8787/api/reports/a1d39228-cda3-4119-96c1-5a9fb5779eb6",
+    "reportHash": "0x78047171c8de5d1dc591e4001a6de1ea429535b6b7fd38d6a5497789a2461dba",
+    "findings": [
+      {
+        "id": "remote-exec-pipe-1",
+        "dimension": "remote_execution",
+        "severity": "high",
+        "evidence": "README.md: ller ## Install Homebrew (on macOS or Linux) ```bash /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" ``` More installation inform",
+        "explanation": "Command piping remote content into shell execution detected.",
+        "recommendation": "Remove direct pipe-to-shell pattern and pin checksummed artifacts."
+      },
+      {
+        "id": "credential-access-2",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": ".github/workflows/actionlint.yml: results.sarif env: GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} - name: Upload SARIF file uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a47",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "credential-access-3",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": ".github/workflows/stale-issues.yml: d # v10.1.1 with: repo-token: ${{ secrets.GITHUB_TOKEN }} days-before-stale: 21 days-before-close: 7 stale-issue-message: >",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "suspicious-network-4",
+        "dimension": "suspicious_network",
+        "severity": "medium",
+        "evidence": "README.md: macOS or Linux) ```bash /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" ``` More installation information and options: <https://do",
+        "explanation": "Suspicious or high-risk outbound endpoint pattern detected.",
+        "recommendation": "Allowlist required domains and block non-essential outbound hosts."
+      },
+      {
+        "id": "permission-mismatch-5",
+        "dimension": "permission_mismatch",
+        "severity": "medium",
+        "evidence": ".github/workflows/tests.yml: S if: runner.os == 'macOS' run: | sudo rm -rf /Applications/Xcode.app \\ /Library/Developer/CommandLineTools sudo xcode-sel",
+        "explanation": "High-privilege command appears inconsistent with typical skill behavior.",
+        "recommendation": "Align command scope with declared functionality and document privileged actions."
+      },
+      {
+        "id": "permission-mismatch-6",
+        "dimension": "permission_mismatch",
+        "severity": "medium",
+        "evidence": "install.sh: && [[ \"${HAVE_SUDO_ACCESS}\" -ne 0 ]] then abort \"Need sudo access on macOS (e.g. the user ${USER} needs to be an Administrator)!\" fi return \"${HAVE_SUDO_ACCESS}\" } exec",
+        "explanation": "High-privilege command appears inconsistent with typical skill behavior.",
+        "recommendation": "Align command scope with declared functionality and document privileged actions."
+      }
+    ],
+    "llmSummary": "## Overview\nRepo: `Homebrew/install` @ `5838cadb…`  \nAudit level: **red** (score 99) driven mainly by **remote code execution patterns** and **high-privilege usage**. Several GitHub Actions workflows also handle `GITHUB_TOKEN`, which can be over-scoped if not constrained.\n\n## Top risks\n1. **Remote execution via curl-pipe-to-shell (High)**\n   - Evidence: `README.md` recommends:  \n     ```bash\n     /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n     ```\n   - Risk: MITM/compromise of upstream content or DNS/TLS termination leads to immediate arbitrary code execution; `HEAD` is mutable.\n\n2. **Credential exposure / token misuse in CI (High)**\n   - Evidence: `.github/workflows/actionlint.yml` and `stale-issues.yml` use `secrets.GITHUB_TOKEN`.\n   - Risk: If workflows/actions are compromised or permissions are broad, `GITHUB_TOKEN` can enable repo modifications, artifact tampering, or exfiltration (especially on PR-triggered contexts if misconfigured).\n\n3. **Suspicious/high-risk network dependency pattern (Medium)**\n   - Evidence: download from `raw.githubusercontent.com` + general outbound fetching.\n   - Risk: Supply-chain exposure; weak allowlisting increases blast radius if script later pulls additional hosts.\n\n4. **Privilege/permission mismatch and destructive commands (Medium)**\n   - Evidence: `.github/workflows/tests.yml` uses `sudo rm -rf /Applications/Xcode.app ...`\n   - Risk: Runner/environment integrity issues; in self-hosted runners this is dangerous. Also indicates elevated operations without tight scoping.\n\n5. **Installer requires/uses sudo (Medium)**\n   - Evidence: `install.sh` checks for sudo/admin rights on macOS.\n   - Risk: Expected for package managers, but increases impact of any script compromise; needs strong integrity guarantees and clear documentation.\n\n## Fix priorities\n### P0 — Must fix (reduce immediate compromise risk)\n- **Replace pipe-to-shell guidance**:\n  - Provide a *download → verify → execute* flow.\n  - Pin to an immutable ref (tag/commit) instead of `HEAD`.\n  - Publish and verify a **checksum** (or signature) for `install.sh`.\n- **Add integrity verification**:\n  - Options: detached signatures (GPG/Sigstore), checksum file served from a separate trusted channel, or GitHub release assets with checksums.\n\n### P1 — Next (CI token hardening & workflow safety)\n- **Constrain `GITHUB_TOKEN` permissions explicitly** in each workflow:\n  - Use `permissions:` at workflow/job level (e.g., `contents: read` unless write is required).\n- **Prevent token use on untrusted PR contexts**:\n  - Avoid `pull_request_target` unless absolutely necessary; ensure no untrusted code executes with elevated token.\n- **Pin GitHub Actions to commit SHAs** (many already are) and review any that aren’t.\n\n### P2 — Hygiene / defense-in-depth\n- **Network allowlisting guidance**:\n  - Document required domains and avoid fetching from additional endpoints during install where possible.\n- **Reduce or isolate privileged operations**:\n  - For CI: avoid destructive `sudo rm -rf` unless required; ensure it only runs on ephemeral GitHub-hosted runners, never self-hosted.\n  - For installer: minimize sudo usage scope; clearly document what requires elevation and why.\n- **Add security documentation**:\n  - Threat model for installer, verification steps, incident response, and how users can validate what they ran."
+  },
+  "report": {
+    "reportId": "a1d39228-cda3-4119-96c1-5a9fb5779eb6",
+    "repoUrl": "https://github.com/Homebrew/install",
+    "commitSha": "5838cadbb2c7beb17c7dcdddb5f0dba6c4780feb",
+    "fingerprint": "0x1b2de516d9e09f0bed70f2d1951236c45eb7f762a47348a2ed66cc06ea1e3a94",
+    "score": 99,
+    "level": "red",
+    "findings": [
+      {
+        "id": "remote-exec-pipe-1",
+        "dimension": "remote_execution",
+        "severity": "high",
+        "evidence": "README.md: ller ## Install Homebrew (on macOS or Linux) ```bash /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" ``` More installation inform",
+        "explanation": "Command piping remote content into shell execution detected.",
+        "recommendation": "Remove direct pipe-to-shell pattern and pin checksummed artifacts."
+      },
+      {
+        "id": "credential-access-2",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": ".github/workflows/actionlint.yml: results.sarif env: GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} - name: Upload SARIF file uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a47",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "credential-access-3",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": ".github/workflows/stale-issues.yml: d # v10.1.1 with: repo-token: ${{ secrets.GITHUB_TOKEN }} days-before-stale: 21 days-before-close: 7 stale-issue-message: >",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "suspicious-network-4",
+        "dimension": "suspicious_network",
+        "severity": "medium",
+        "evidence": "README.md: macOS or Linux) ```bash /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" ``` More installation information and options: <https://do",
+        "explanation": "Suspicious or high-risk outbound endpoint pattern detected.",
+        "recommendation": "Allowlist required domains and block non-essential outbound hosts."
+      },
+      {
+        "id": "permission-mismatch-5",
+        "dimension": "permission_mismatch",
+        "severity": "medium",
+        "evidence": ".github/workflows/tests.yml: S if: runner.os == 'macOS' run: | sudo rm -rf /Applications/Xcode.app \\ /Library/Developer/CommandLineTools sudo xcode-sel",
+        "explanation": "High-privilege command appears inconsistent with typical skill behavior.",
+        "recommendation": "Align command scope with declared functionality and document privileged actions."
+      },
+      {
+        "id": "permission-mismatch-6",
+        "dimension": "permission_mismatch",
+        "severity": "medium",
+        "evidence": "install.sh: && [[ \"${HAVE_SUDO_ACCESS}\" -ne 0 ]] then abort \"Need sudo access on macOS (e.g. the user ${USER} needs to be an Administrator)!\" fi return \"${HAVE_SUDO_ACCESS}\" } exec",
+        "explanation": "High-privilege command appears inconsistent with typical skill behavior.",
+        "recommendation": "Align command scope with declared functionality and document privileged actions."
+      }
+    ],
+    "llmSummary": "## Overview\nRepo: `Homebrew/install` @ `5838cadb…`  \nAudit level: **red** (score 99) driven mainly by **remote code execution patterns** and **high-privilege usage**. Several GitHub Actions workflows also handle `GITHUB_TOKEN`, which can be over-scoped if not constrained.\n\n## Top risks\n1. **Remote execution via curl-pipe-to-shell (High)**\n   - Evidence: `README.md` recommends:  \n     ```bash\n     /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n     ```\n   - Risk: MITM/compromise of upstream content or DNS/TLS termination leads to immediate arbitrary code execution; `HEAD` is mutable.\n\n2. **Credential exposure / token misuse in CI (High)**\n   - Evidence: `.github/workflows/actionlint.yml` and `stale-issues.yml` use `secrets.GITHUB_TOKEN`.\n   - Risk: If workflows/actions are compromised or permissions are broad, `GITHUB_TOKEN` can enable repo modifications, artifact tampering, or exfiltration (especially on PR-triggered contexts if misconfigured).\n\n3. **Suspicious/high-risk network dependency pattern (Medium)**\n   - Evidence: download from `raw.githubusercontent.com` + general outbound fetching.\n   - Risk: Supply-chain exposure; weak allowlisting increases blast radius if script later pulls additional hosts.\n\n4. **Privilege/permission mismatch and destructive commands (Medium)**\n   - Evidence: `.github/workflows/tests.yml` uses `sudo rm -rf /Applications/Xcode.app ...`\n   - Risk: Runner/environment integrity issues; in self-hosted runners this is dangerous. Also indicates elevated operations without tight scoping.\n\n5. **Installer requires/uses sudo (Medium)**\n   - Evidence: `install.sh` checks for sudo/admin rights on macOS.\n   - Risk: Expected for package managers, but increases impact of any script compromise; needs strong integrity guarantees and clear documentation.\n\n## Fix priorities\n### P0 — Must fix (reduce immediate compromise risk)\n- **Replace pipe-to-shell guidance**:\n  - Provide a *download → verify → execute* flow.\n  - Pin to an immutable ref (tag/commit) instead of `HEAD`.\n  - Publish and verify a **checksum** (or signature) for `install.sh`.\n- **Add integrity verification**:\n  - Options: detached signatures (GPG/Sigstore), checksum file served from a separate trusted channel, or GitHub release assets with checksums.\n\n### P1 — Next (CI token hardening & workflow safety)\n- **Constrain `GITHUB_TOKEN` permissions explicitly** in each workflow:\n  - Use `permissions:` at workflow/job level (e.g., `contents: read` unless write is required).\n- **Prevent token use on untrusted PR contexts**:\n  - Avoid `pull_request_target` unless absolutely necessary; ensure no untrusted code executes with elevated token.\n- **Pin GitHub Actions to commit SHAs** (many already are) and review any that aren’t.\n\n### P2 — Hygiene / defense-in-depth\n- **Network allowlisting guidance**:\n  - Document required domains and avoid fetching from additional endpoints during install where possible.\n- **Reduce or isolate privileged operations**:\n  - For CI: avoid destructive `sudo rm -rf` unless required; ensure it only runs on ephemeral GitHub-hosted runners, never self-hosted.\n  - For installer: minimize sudo usage scope; clearly document what requires elevation and why.\n- **Add security documentation**:\n  - Threat model for installer, verification steps, incident response, and how users can validate what they ran.",
+    "generatedAt": "2026-02-18T08:19:27.720Z"
+  },
+  "attest": {
+    "ok": false,
+    "status": 400,
+    "body": {
+      "error": "Only green reports are eligible for attestation"
+    }
+  }
+}

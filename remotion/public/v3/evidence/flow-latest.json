@@ -1,0 +1,93 @@
+{
+  "startedAt": "2026-02-13T15:49:51.537Z",
+  "config": {
+    "baseUrl": "http://localhost:8787",
+    "repoUrl": "https://github.com/octocat/Hello-World",
+    "commitSha": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11d",
+    "maxWaitMs": 120000,
+    "pollMs": 1500,
+    "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9"
+  },
+  "health": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "status": "ok"
+    }
+  },
+  "startAudit": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "auditId": "4da11f90-7091-42eb-a46c-162e07794fa5",
+      "status": "queued"
+    }
+  },
+  "polls": {
+    "count": 11,
+    "statuses": [
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "running",
+      "done"
+    ]
+  },
+  "audit": {
+    "status": "done",
+    "fingerprint": "0xe89688d203c73e040cca08740fc43c998fdbeba4d144b2c627a8a96dc6d38796",
+    "score": 0,
+    "level": "green",
+    "reportUrl": "http://localhost:8787/api/reports/ab04ed9e-5265-4bee-9f26-de48bfbbcb13",
+    "reportHash": "0xcb4124b028b16da50ea7d5e6d4563bde749236dc605d0a1e84225be374c15d2d",
+    "findings": [],
+    "llmSummary": "## Overview\n- **Target:** `octocat/Hello-World` @ `7fd1a60b01f91b314f59955a4e4d4e80d8edf11d`\n- **Reported status:** **green**\n- **Score:** `0`\n- **Findings provided:** **0**\n\n> Note: With no findings included, this appears to be a “no issues detected” report **or** a scan/reporting pipeline that didn’t emit results. Treat it as *inconclusive* unless you confirm the scanner actually analyzed the code and dependencies.\n\n## Top risks\n1. **False sense of security (no findings ≠ no risk):** If tooling didn’t run correctly (auth/rate limits/paths excluded), critical issues may be missed.\n2. **Unscanned dependency/supply-chain risk:** Even simple repos can pull vulnerable dependencies via CI, containers, or actions.\n3. **Missing context on coverage:** No info on what was scanned (source, IaC, secrets, SAST, SCA, CI configs), so risk surface may be unassessed.\n\n## Fix priorities\n1. **Validate scan completeness (highest priority)**\n   - Confirm the scanner ran successfully and produced a valid report for this commit.\n   - Record: tools used, versions, rulesets, exit codes, excluded paths, and coverage (SAST/SCA/secrets/IaC).\n2. **Add baseline safeguards**\n   - Enable dependency scanning (SCA), secret scanning, and CI workflow scanning (e.g., GitHub Actions).\n   - Enforce branch protection + required security checks.\n3. **Harden supply chain**\n   - Pin GitHub Actions by commit SHA, restrict permissions (`permissions: read-all` or least privilege), and review third-party actions.\n4. **Schedule continuous monitoring**\n   - Run scans on PRs and on a cadence (daily/weekly) with alerting.\n\nIf you share what scanner generated this JSON (tool name + config), I can assess whether “0 findings” is credible or likely a pipeline/coverage gap."
+  },
+  "reportFetch": {
+    "ok": true,
+    "status": 200,
+    "reportId": "ab04ed9e-5265-4bee-9f26-de48bfbbcb13",
+    "level": "green",
+    "score": 0
+  },
+  "attestFirst": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "txHash": "0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77",
+      "chainId": 5611,
+      "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9"
+    }
+  },
+  "attestSecond": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "txHash": "0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77",
+      "chainId": 5611,
+      "contractAddress": "0x8F4aF898fc2f28281D2a51d322b586C1DA0481f9",
+      "reused": true
+    }
+  },
+  "attestationList": {
+    "ok": true,
+    "status": 200,
+    "latestTx": "0x7c4b2c3d5bb8dd1aaa34c9dd7a218b0ab91f607d9faac237b40d6500378eab77",
+    "historyCount": 6
+  },
+  "assertions": {
+    "auditDone": true,
+    "levelIsGreen": true,
+    "firstTxPresent": true,
+    "secondReused": true,
+    "secondTxMatchesFirst": true,
+    "latestMatchesFirst": true
+  },
+  "finishedAt": "2026-02-13T15:50:11.258Z"
+}

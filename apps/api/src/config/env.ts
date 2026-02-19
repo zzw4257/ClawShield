@@ -33,10 +33,13 @@ const schema = z.object({
 });
 
 const parsed = schema.parse(process.env);
+const resolvedDbPath = path.isAbsolute(parsed.DB_PATH)
+  ? parsed.DB_PATH
+  : path.resolve(workspaceRoot, parsed.DB_PATH);
 
 export const env = {
   port: parsed.BACKEND_PORT,
-  dbPath: parsed.DB_PATH,
+  dbPath: resolvedDbPath,
   reportsDir: path.resolve(workspaceRoot, "data", "reports"),
   publicApiBaseUrl: parsed.NEXT_PUBLIC_API_URL || `http://localhost:${parsed.BACKEND_PORT}`,
   corsAllowedOrigins: parsed.CORS_ALLOWED_ORIGINS,

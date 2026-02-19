@@ -60,21 +60,27 @@ function run(cmd: string, args: string[]): Promise<void> {
 
 function writeStatus(data: {
   status: "passed" | "failed";
-  txHash: string;
+  latestVerifyTxHash: string;
+  submissionTxHash?: string;
   contractAddress: string;
   flowReportPath: string;
   eventReportPath: string;
 }) {
   const statusPath = path.resolve(projectRoot, "docs/verification/STATUS.md");
+  const submissionLine = data.submissionTxHash
+    ? `- Submission Tx Hash (env): ${data.submissionTxHash}\n`
+    : "";
+
   const body = `# Verification Status
 
 - Last run (UTC): ${new Date().toISOString()}
 - Status: ${data.status}
 - Contract Address: ${data.contractAddress}
-- Tx Hash: ${data.txHash}
-- Flow report: \`${data.flowReportPath}\`
+- Latest Verify Tx Hash: ${data.latestVerifyTxHash}
+${submissionLine}- Flow report: \`${data.flowReportPath}\`
 - Event report: \`${data.eventReportPath}\`
 `;
+
   fs.mkdirSync(path.dirname(statusPath), { recursive: true });
   fs.writeFileSync(statusPath, body, "utf8");
 }
@@ -124,7 +130,8 @@ async function main() {
     await run("npm", cmd);
     writeStatus({
       status: "passed",
-      txHash,
+      latestVerifyTxHash: txHash,
+      submissionTxHash: process.env.SUBMISSION_TX_HASH,
       contractAddress,
       flowReportPath: flowOut,
       eventReportPath: eventOut
@@ -132,7 +139,8 @@ async function main() {
   } catch (error) {
     writeStatus({
       status: "failed",
-      txHash,
+      latestVerifyTxHash: txHash,
+      submissionTxHash: process.env.SUBMISSION_TX_HASH,
       contractAddress,
       flowReportPath: flowOut,
       eventReportPath: eventOut

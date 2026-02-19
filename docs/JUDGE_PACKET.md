@@ -37,3 +37,13 @@ npm run verify:event --workspace @clawshield/api -- --txHash 0x7c4b2c3d5bb8dd1aa
 - Timeline: `docs/ai-log/TRACE_LOG.md`
 - Evidence map: `docs/ai-log/EVIDENCE_INDEX.md`
 - Prompt/output assets: `docs/ai-log/prompts/`, `docs/ai-log/outputs/`, `docs/ai-log/diffs/`
+
+## 6) Concrete Local Casebook
+
+- Case registry: `docs/cases/case-registry.lock.json`
+- Candidate repos: `docs/cases/candidate-repos.json`
+- Run all cases: `npm run cases:run`
+- Capture screenshots: `npm run cases:capture`
+- Verify all case evidence: `npm run cases:verify`
+- Casebook index: `docs/cases/CASEBOOK.md`
+- Visual showcase: `docs/cases/SHOWCASE.md`

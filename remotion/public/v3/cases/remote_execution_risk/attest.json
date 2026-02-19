@@ -1,0 +1,7 @@
+{
+  "ok": false,
+  "status": 400,
+  "body": {
+    "error": "Only green reports are eligible for attestation"
+  }
+}

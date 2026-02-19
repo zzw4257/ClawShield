@@ -1,0 +1,13 @@
+Scene 1. OpenClaw skills move fast, but trust checks usually happen too late. Attackers hide remote execution and credential reads behind normal install instructions.
+
+Scene 2. ClawShield takes one repo and one commit, then runs deterministic scoring, AI explanation, and commit-bound hashing. The output becomes a clear allow or deny policy decision.
+
+Scene 3. The Case Gallery proves behavior with three concrete inputs: a clean baseline, a remote execution risk, and a credential access risk. Same pipeline, different verifiable outcomes.
+
+Scene 4. Only green outcomes can attest on opBNB testnet. The transaction event stores fingerprint, score, report hash, repo, and commit so judges can independently verify every field.
+
+Scene 5. AI contribution is not hand-waved. We keep prompt, output, code diff, and screenshot loops to show exactly where AI accelerated delivery and where human control stayed in place.
+
+Scene 6. Competition requirements map directly to artifacts: onchain proof, reproducible case runs, and AI evidence. What we claim in docs is exactly what the product and chain report.
+
+Scene 7. Result: faster shipping, with auditable trust boundaries before installation.

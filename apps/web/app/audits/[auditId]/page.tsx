@@ -27,6 +27,17 @@ type AuditResponse = {
 
 type TimelineStep = "queued" | "running" | "done" | "failed";
 
+type Takeaway = {
+  title: string;
+  content: string;
+};
+
+type AttestationState = {
+  kind: "idle" | "success" | "denied" | "error";
+  txHash?: string;
+  message?: string;
+};
+
 function getTimelineState(
   step: TimelineStep,
   status: AuditResponse["status"] | undefined
@@ -50,6 +61,66 @@ function getTimelineState(
   return "pending";
 }
 
+function stripMarkdown(input: string): string {
+  return input.replace(/^[-*\d.\s#>]+/, "").trim();
+}
+
+function extractTakeaways(summary?: string): Takeaway[] {
+  if (!summary || !summary.trim()) {
+    return [];
+  }
+
+  const lines = summary.split("\n").map((line) => line.trim());
+  const sections: Array<{ heading: string; points: string[] }> = [];
+  let current = { heading: "Overview", points: [] as string[] };
+
+  for (const rawLine of lines) {
+    if (!rawLine) continue;
+    if (rawLine.startsWith("## ")) {
+      if (current.points.length > 0) {
+        sections.push(current);
+      }
+      current = { heading: stripMarkdown(rawLine.replace(/^##\s+/, "")), points: [] };
+      continue;
+    }
+
+    if (/^[-*]\s+/.test(rawLine) || /^\d+\.\s+/.test(rawLine)) {
+      current.points.push(stripMarkdown(rawLine));
+    }
+  }
+
+  if (current.points.length > 0) {
+    sections.push(current);
+  }
+
+  const direct = sections
+    .slice(0, 4)
+    .map((item) => ({ title: item.heading, content: item.points[0] }))
+    .filter((item) => item.content);
+
+  if (direct.length > 0) {
+    return direct;
+  }
+
+  return lines
+    .filter(Boolean)
+    .slice(0, 4)
+    .map((line, index) => ({ title: `Point ${index + 1}`, content: stripMarkdown(line) }));
+}
+
+function formatAttestationState(state: AttestationState): string {
+  if (state.kind === "success") {
+    return `Attested onchain (${state.txHash})`;
+  }
+  if (state.kind === "denied") {
+    return `Policy denied: ${state.message || "Only green reports can be attested."}`;
+  }
+  if (state.kind === "error") {
+    return state.message || "Attestation failed";
+  }
+  return "Not attempted";
+}
+
 export default function AuditDetailPage() {
   const params = useParams<{ auditId: string }>();
   const auditId = params.auditId;
@@ -57,8 +128,7 @@ export default function AuditDetailPage() {
   const [audit, setAudit] = useState<AuditResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAttesting, setIsAttesting] = useState(false);
-  const [tx, setTx] = useState<string | null>(null);
-  const [attestError, setAttestError] = useState<string | null>(null);
+  const [attestationState, setAttestationState] = useState<AttestationState>({ kind: "idle" });
   const explorerBase = "https://opbnb-testnet-scan.bnbchain.org";
 
   const shouldPoll = useMemo(() => {
@@ -71,6 +141,11 @@ export default function AuditDetailPage() {
     setAudit(payload);
     setIsLoading(false);
   }, [auditId]);
+
+  const takeaways = useMemo(() => extractTakeaways(audit?.llmSummary), [audit?.llmSummary]);
+  const dimensions = useMemo(() => {
+    return Array.from(new Set((audit?.findings || []).map((item) => item.dimension)));
+  }, [audit?.findings]);
 
   useEffect(() => {
     void loadAudit();
@@ -89,12 +164,17 @@ export default function AuditDetailPage() {
 
   async function attest() {
     setIsAttesting(true);
-    setAttestError(null);
+
     try {
       const payload = await submitAttestation(auditId);
-      setTx(payload.txHash);
+      setAttestationState({ kind: "success", txHash: payload.txHash });
     } catch (error) {
-      setAttestError(error instanceof Error ? error.message : "Failed to attest");
+      const message = error instanceof Error ? error.message : "Failed to attest";
+      if (message.toLowerCase().includes("only green")) {
+        setAttestationState({ kind: "denied", message });
+      } else {
+        setAttestationState({ kind: "error", message });
+      }
     } finally {
       setIsAttesting(false);
     }
@@ -102,42 +182,78 @@ export default function AuditDetailPage() {
 
   return (
     <main>
-      <section className="hero">
-        <h2>Audit Status</h2>
-        <p className="mono">Audit ID: {auditId}</p>
+      <section className="hero auditHero">
+        <header className="verdictHeader">
+          <div>
+            <p className="small">Audit Detail</p>
+            <h2>Commit Verdict</h2>
+            <p className="mono">Audit ID: {auditId}</p>
+          </div>
+          <div className="verdictStats">
+            <ScoreBadge level={audit?.level} score={audit?.score} />
+            <span className="small">Status: {audit?.status || "loading"}</span>
+          </div>
+        </header>
 
         {isLoading ? <p>Loading...</p> : null}
 
         {audit ? (
-          <div className="grid">
-            <article className="panel">
-              <h3>Summary</h3>
-              <p>Status: {audit.status}</p>
-              <div className="statusTimeline">
-                {(["queued", "running", "done", "failed"] as TimelineStep[]).map((step) => (
-                  <span key={step} className={`timelineStep ${getTimelineState(step, audit.status)}`}>
-                    {step.toUpperCase()}
-                  </span>
-                ))}
-              </div>
-              <ScoreBadge level={audit.level} score={audit.score} />
-              {audit.fingerprint ? (
-                <p className="mono">Fingerprint: {audit.fingerprint}</p>
-              ) : null}
-              {audit.reportHash ? <p className="mono">Report Hash: {audit.reportHash}</p> : null}
-              {audit.reportUrl ? (
-                <p>
-                  <a href={audit.reportUrl} target="_blank" rel="noreferrer">
-                    Open report JSON
-                  </a>
-                </p>
-              ) : null}
-              <details>
-                <summary>Judge View (one-screen facts)</summary>
+          <div className="auditLayout">
+            <div className="auditPrimary">
+              <article className="panel">
+                <h3>Workflow Timeline</h3>
+                <div className="statusTimeline">
+                  {(["queued", "running", "done", "failed"] as TimelineStep[]).map((step) => (
+                    <span key={step} className={`timelineStep ${getTimelineState(step, audit.status)}`}>
+                      {step.toUpperCase()}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="ctaRow">
+                  <button
+                    onClick={() => {
+                      void loadAudit();
+                    }}
+                    className="secondary"
+                  >
+                    Refresh
+                  </button>
+                  <button
+                    onClick={() => {
+                      void attest();
+                    }}
+                    disabled={isAttesting || audit.status !== "done" || audit.level !== "green"}
+                  >
+                    {isAttesting ? "Attesting..." : "Attest Onchain"}
+                  </button>
+                </div>
+
+                {attestationState.kind === "success" && attestationState.txHash ? (
+                  <p className="mono">
+                    TX: <a href={`${explorerBase}/tx/${attestationState.txHash}`}>{attestationState.txHash}</a>
+                  </p>
+                ) : null}
+
+                {audit.fingerprint ? (
+                  <p>
+                    <Link href={`/fingerprint/${audit.fingerprint}`}>View fingerprint attestations</Link>
+                  </p>
+                ) : null}
+              </article>
+
+              <article className="panel judgeFacts">
+                <h3>Judge Facts</h3>
                 <div className="judgeView">
                   <div className="judgeViewRow">
-                    <span>Score/Level</span>
-                    <div>{audit.score ?? "N/A"} / {audit.level ?? "N/A"}</div>
+                    <span>Score / Level</span>
+                    <div>
+                      {audit.score ?? "N/A"} / {audit.level ?? "N/A"}
+                    </div>
+                  </div>
+                  <div className="judgeViewRow">
+                    <span>Dimensions</span>
+                    <div>{dimensions.length > 0 ? dimensions.join(", ") : "none"}</div>
                   </div>
                   <div className="judgeViewRow">
                     <span>Fingerprint</span>
@@ -148,72 +264,70 @@ export default function AuditDetailPage() {
                     <code className="mono">{audit.reportHash || "N/A"}</code>
                   </div>
                   <div className="judgeViewRow">
-                    <span>TX</span>
-                    {tx ? (
-                      <a href={`${explorerBase}/tx/${tx}`} target="_blank" rel="noreferrer">
-                        {tx}
-                      </a>
-                    ) : (
-                      <span>N/A</span>
-                    )}
+                    <span>Attestation</span>
+                    <div>{formatAttestationState(attestationState)}</div>
+                  </div>
+                  <div className="judgeViewRow">
+                    <span>Report JSON</span>
+                    <div>
+                      {audit.reportUrl ? (
+                        <a href={audit.reportUrl} target="_blank" rel="noreferrer">
+                          Open report JSON
+                        </a>
+                      ) : (
+                        "N/A"
+                      )}
+                    </div>
                   </div>
                 </div>
-              </details>
-              {audit.error ? <p>{audit.error}</p> : null}
-              <div className="ctaRow">
-                <button
-                  onClick={() => {
-                    void loadAudit();
-                  }}
-                  className="secondary"
-                >
-                  Refresh
-                </button>
-                <button
-                  onClick={() => {
-                    void attest();
-                  }}
-                  disabled={isAttesting || audit.status !== "done" || audit.level !== "green"}
-                >
-                  {isAttesting ? "Attesting..." : "Attest Onchain"}
-                </button>
-              </div>
-              {tx ? (
-                <p>
-                  TX:{" "}
-                  <a className="mono" href={`${explorerBase}/tx/${tx}`} target="_blank" rel="noreferrer">
-                    {tx}
-                  </a>
-                </p>
-              ) : null}
-              {attestError ? <p className="small">{attestError}</p> : null}
-              {audit.fingerprint ? (
-                <Link href={`/fingerprint/${audit.fingerprint}`}>View fingerprint attestations</Link>
-              ) : null}
-            </article>
+                {audit.error ? <p className="small">{audit.error}</p> : null}
+              </article>
 
-            <article className="panel">
-              <h3>LLM Summary</h3>
-              <pre>{audit.llmSummary || "Waiting for summary..."}</pre>
-            </article>
-
-            <article className="panel">
-              <h3>Findings</h3>
-              {audit.findings && audit.findings.length > 0 ? (
-                audit.findings.map((finding) => (
-                  <div key={finding.id} className="finding">
-                    <p>
-                      <strong>{finding.dimension}</strong> ({finding.severity})
-                    </p>
-                    <p className="mono">{finding.evidence}</p>
-                    <p>{finding.explanation}</p>
-                    <p className="small">Fix: {finding.recommendation}</p>
+              <article className="panel">
+                <h3>Findings (Primary Evidence)</h3>
+                {audit.findings && audit.findings.length > 0 ? (
+                  <div className="findingsList">
+                    {audit.findings.map((finding) => (
+                      <div key={finding.id} className="finding">
+                        <p>
+                          <strong>{finding.dimension}</strong> ({finding.severity})
+                        </p>
+                        <p className="mono">{finding.evidence}</p>
+                        <p>{finding.explanation}</p>
+                        <p className="small">Fix: {finding.recommendation}</p>
+                      </div>
+                    ))}
                   </div>
-                ))
-              ) : (
-                <p>No finding yet.</p>
-              )}
-            </article>
+                ) : (
+                  <p>No structured finding returned for this commit.</p>
+                )}
+              </article>
+            </div>
+
+            <div className="auditSecondary">
+              <article className="panel">
+                <h3>AI Takeaways</h3>
+                {takeaways.length > 0 ? (
+                  <div className="takeawayList">
+                    {takeaways.map((item) => (
+                      <div key={`${item.title}-${item.content}`} className="takeawayItem">
+                        <p className="takeawayTitle">{item.title}</p>
+                        <p>{item.content}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="small">Waiting for AI summary...</p>
+                )}
+              </article>
+
+              <article className="panel">
+                <details>
+                  <summary>Raw AI Output</summary>
+                  <pre className="rawSummary">{audit.llmSummary || "No AI summary yet."}</pre>
+                </details>
+              </article>
+            </div>
           </div>
         ) : null}
       </section>

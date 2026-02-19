@@ -1,0 +1,10 @@
+{
+  "status": "done",
+  "fingerprint": "0xe89688d203c73e040cca08740fc43c998fdbeba4d144b2c627a8a96dc6d38796",
+  "score": 0,
+  "level": "green",
+  "reportUrl": "http://localhost:8787/api/reports/7934eda0-be1e-4fca-b974-827cf01cbb00",
+  "reportHash": "0x77d21dace9aab44e6d2320a95a60e3e980d00cb2f9fa015d6ec4bbdcbf26b2a2",
+  "findings": [],
+  "llmSummary": "## Overview\n- **Repository:** https://github.com/octocat/Hello-World  \n- **Commit:** `7fd1a60b01f91b314f59955a4e4d4e80d8edf11d`  \n- **Reported security status:** **Green**  \n- **Score:** `0` (as provided)  \n- **Findings provided:** **None** (`[]`)\n\n## Top risks\nNo concrete risks can be derived from the supplied report because **no findings were included**. The main risk is **false confidence** if:\n- the scan didn’t run, ran with limited rules, or failed silently,\n- only a subset of the code was analyzed,\n- dependencies/secrets/IaC weren’t checked.\n\n## Fix priorities\nSince there are **no reported issues**, prioritize **verification and coverage**:\n1. **Confirm scan completeness:** ensure the analyzer actually executed for this commit and covered the full repo (including tests, scripts, CI configs).\n2. **Add/verify baseline controls:** secret scanning, dependency (SCA) scanning, and SAST in CI on PRs.\n3. **Record evidence:** keep scan logs/artifacts tied to the commit SHA for auditability."
+}

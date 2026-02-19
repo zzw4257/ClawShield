@@ -77,6 +77,7 @@ apps/api/               Express + SQLite + audit pipeline + onchain attestation 
 apps/web/               Next.js frontend for audit/report/attestation/query
 packages/shared-types/  Shared domain types
 docs/                   Architecture / flow / threat model / demo runbook / submission docs
+docs/cases/             Concrete 3-case registry + per-case evidence artifacts
 docs/ai-log/            Prompt-output-evidence archive
 docs/verification/      Verification artifacts and status
 remotion/               90s demo video project
@@ -118,6 +119,11 @@ npm run contracts:deploy:opbnbTestnet
 npm run security:scan
 npm run verify:ci
 npm run verify:all
+npm run cases:pin
+npm run cases:run
+npm run cases:capture
+npm run cases:verify
+npm run release:check
 npm run verify:flow --workspace @clawshield/api
 npm run proof:refresh --workspace @clawshield/api
 npm run release:sync-proof -- --contractAddress <0x...> --txHash <0x...> --repoUrl https://github.com/zzw4257/ClawShield --demoUrl https://clawshield.vercel.app --videoUrl media/video/clawshield-demo.mp4
@@ -134,11 +140,17 @@ npm run release:prepare -- --contractAddress <0x...> --txHash <0x...>
 
 ## Submission Docs
 
+- `docs/README.md`
 - `docs/DORAHACKS_SUBMISSION_FINAL.md`
 - `docs/DORAHACKS_DESCRIPTION_PASTE.md`
 - `docs/JUDGE_PACKET.md`
 - `docs/PROOF_INDEX.md`
 - `docs/TESTING.md`
+- `docs/cases/SHOWCASE.md`
+- `docs/VIDEO_RECORDING_PACK.md`
+- `docs/VIDEO_INPUT_EXAMPLES.md`
+- `docs/SYSTEM_BLUEPRINT.md`
+- `docs/RELEASE_TODAY.md`
 - `docs/DEMO_RUNBOOK.md`
 - `docs/DEPLOY_RENDER_VERCEL.md`
 - `AI_BUILD_LOG.md`

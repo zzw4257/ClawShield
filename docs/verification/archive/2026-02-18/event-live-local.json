@@ -1,0 +1,14 @@
+{
+  "txHash": "0xdc024ea0f6258bc9c2e836d7ce683831b2b24a610323aba48f07f65959e2b8b8",
+  "contractAddress": "0x8f4af898fc2f28281d2a51d322b586c1da0481f9",
+  "blockNumber": 130357321,
+  "logIndex": 0,
+  "fingerprint": "0xe89688d203c73e040cca08740fc43c998fdbeba4d144b2c627a8a96dc6d38796",
+  "score": 0,
+  "attester": "0xf709b2fF3Fa85c7919f5120239eaDdbcddC3c3A3",
+  "reportURI": "http://localhost:8787/api/reports/5b3ffe58-85b6-45c0-b6a9-7ca072df836a",
+  "reportHash": "0xa2be33506e19fe775f8e81b8f54c3ca0c63a1d2017e82f3a0775ef934767e464",
+  "repo": "https://github.com/octocat/Hello-World",
+  "commit": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11d",
+  "timestamp": 1771398656
+}

@@ -1,0 +1,119 @@
+{
+  "startedAt": "2026-02-18T08:19:29.257Z",
+  "finishedAt": "2026-02-18T08:19:47.257Z",
+  "caseId": "credential_access_risk",
+  "start": {
+    "ok": true,
+    "status": 200,
+    "body": {
+      "auditId": "df2f91e0-b95f-4e60-b78a-86d87b7d7b57",
+      "status": "queued"
+    }
+  },
+  "pollCount": 9,
+  "statuses": [
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "running",
+    "done"
+  ],
+  "audit": {
+    "status": "done",
+    "fingerprint": "0x5c2f0f87c5e96e11e9f4a0e121cf34116ceaebc5216442f274fe98412d074956",
+    "score": 63,
+    "level": "yellow",
+    "reportUrl": "http://localhost:8787/api/reports/4e71c23e-5507-4e60-a69f-93f78ca713cf",
+    "reportHash": "0x17f9256ce24259dc3ce2c75078fe0a1e07392f2486ae30f559484aa8c68defcf",
+    "findings": [
+      {
+        "id": "credential-access-1",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": "config/config.js: re(\"path\"); const util = require(\"util\"); const finalEnv = process.env.NODE_ENV || \"development\"; const allConf = require(path.resolve(__dirname + \"/../config/env/all.js\")); cons",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "credential-access-2",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": "config/env/all.js: // default app configuration const port = process.env.PORT || 4000; let db = process.env.MONGODB_URI || \"mongodb://localhost:27017/nodegoat\"; module.exports = {",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "obfuscation-3",
+        "dimension": "obfuscation",
+        "severity": "medium",
+        "evidence": "app/assets/vendor/bootstrap/bootstrap-tour.js: , path; _this.setCurrentStep(i); path = $.isFunction(step.path) ? step.path.call() : _this._options.basePath + step.path; current_path = [document.location.",
+        "explanation": "Code obfuscation pattern detected, which may hide harmful logic.",
+        "recommendation": "Replace obfuscated logic with explicit, auditable code paths."
+      },
+      {
+        "id": "obfuscation-4",
+        "dimension": "obfuscation",
+        "severity": "medium",
+        "evidence": "app/assets/vendor/chart/raphael-min.js: d\\.]+%?(?:\\s*,\\s*[\\d\\.]+%?)?)\\s*\\)|hsba?\\(\\s*([\\d\\.]+(?:deg|\\xb0|%)?\\s*,\\s*[\\d\\.]+%?\\s*,\\s*[\\d\\.]+(?:%?\\s*,\\s*[\\d\\.]+)?)%?\\s*\\)|hsla?\\(\\s*([\\d\\.]+(?:deg|\\xb0|%)?\\s*,\\s*[\\d\\.]+%?\\s*",
+        "explanation": "Code obfuscation pattern detected, which may hide harmful logic.",
+        "recommendation": "Replace obfuscated logic with explicit, auditable code paths."
+      }
+    ],
+    "llmSummary": "## Overview\n- **Repo/commit:** OWASP/NodeGoat @ `c5cb68a7…`\n- **Score/level:** 63 (**yellow**)\n- **Key themes:** high-risk **credential/secrets exposure via configuration**, plus **minified/obfuscated vendor assets** that reduce auditability (and can mask tampering).\n\n## Top risks\n1. **Credential/secrets exposure through broad config loading (High)**\n   - **Evidence:** `config/config.js` loads environment config dynamically (e.g., `require(.../config/env/all.js)` based on `NODE_ENV`).\n   - **Risk:** Secrets and connection strings can be unintentionally accessible across environments, logged, or bundled into runtime contexts where they don’t belong. Increases blast radius if one part of the app is compromised.\n\n2. **Hardcoded/default database connection string (High)**\n   - **Evidence:** `config/env/all.js`: `process.env.MONGODB_URI || \"mongodb://localhost:27017/nodegoat\"`\n   - **Risk:** Encourages insecure defaults, accidental use in non-dev contexts, and makes it easy to run without explicit secret provisioning. If extended similarly for creds, it becomes a common source of leaked credentials and misconfigurations.\n\n3. **Minified/obfuscated vendor JavaScript reduces auditability (Medium)**\n   - **Evidence:** `app/assets/vendor/bootstrap/bootstrap-tour.js`, `app/assets/vendor/chart/raphael-min.js`\n   - **Risk:** Minified code is not inherently malicious, but it can **hide injected logic** and makes integrity review harder. If these files are modified or sourced insecurely, it can enable supply-chain style compromise.\n\n## Fix priorities\n### P0 (do first)\n- **Implement explicit secret mapping & least privilege**\n  - Centralize secrets (DB URI, API keys) via a dedicated secrets manager or environment variables with **explicit allowlist** (only the keys needed by each environment/service).\n  - Ensure configs don’t “pull in everything” by default; separate **non-secret config** from **secret material**.\n- **Remove insecure defaults for sensitive endpoints**\n  - Keep `mongodb://localhost...` only for development, and **fail fast** (startup error) if `MONGODB_URI` is missing in non-dev environments.\n\n### P1 (next)\n- **Add secret leakage guardrails**\n  - Prevent secrets from being logged/serialized (redaction middleware, config object sanitization).\n  - Add repo scanning + CI checks (e.g., gitleaks/trufflehog) and pre-commit hooks.\n\n### P2 (hardening)\n- **Treat vendor JS as supply-chain artifacts**\n  - Prefer package-manager sourced dependencies (npm/yarn) with lockfiles rather than checked-in vendored/minified blobs.\n  - Add **integrity verification** (checksums/SRI where applicable) and track versions.\n  - If you must keep vendored minified files, store the **unminified source + build recipe** to enable auditing and reproducible builds."
+  },
+  "report": {
+    "reportId": "4e71c23e-5507-4e60-a69f-93f78ca713cf",
+    "repoUrl": "https://github.com/OWASP/NodeGoat",
+    "commitSha": "c5cb68a7084e4ae7dcc60e6a98768720a81841e8",
+    "fingerprint": "0x5c2f0f87c5e96e11e9f4a0e121cf34116ceaebc5216442f274fe98412d074956",
+    "score": 63,
+    "level": "yellow",
+    "findings": [
+      {
+        "id": "credential-access-1",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": "config/config.js: re(\"path\"); const util = require(\"util\"); const finalEnv = process.env.NODE_ENV || \"development\"; const allConf = require(path.resolve(__dirname + \"/../config/env/all.js\")); cons",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "credential-access-2",
+        "dimension": "credential_access",
+        "severity": "high",
+        "evidence": "config/env/all.js: // default app configuration const port = process.env.PORT || 4000; let db = process.env.MONGODB_URI || \"mongodb://localhost:27017/nodegoat\"; module.exports = {",
+        "explanation": "Potential access to sensitive credentials or wallet data.",
+        "recommendation": "Constrain secret access and use explicit least-privilege secret mapping."
+      },
+      {
+        "id": "obfuscation-3",
+        "dimension": "obfuscation",
+        "severity": "medium",
+        "evidence": "app/assets/vendor/bootstrap/bootstrap-tour.js: , path; _this.setCurrentStep(i); path = $.isFunction(step.path) ? step.path.call() : _this._options.basePath + step.path; current_path = [document.location.",
+        "explanation": "Code obfuscation pattern detected, which may hide harmful logic.",
+        "recommendation": "Replace obfuscated logic with explicit, auditable code paths."
+      },
+      {
+        "id": "obfuscation-4",
+        "dimension": "obfuscation",
+        "severity": "medium",
+        "evidence": "app/assets/vendor/chart/raphael-min.js: d\\.]+%?(?:\\s*,\\s*[\\d\\.]+%?)?)\\s*\\)|hsba?\\(\\s*([\\d\\.]+(?:deg|\\xb0|%)?\\s*,\\s*[\\d\\.]+%?\\s*,\\s*[\\d\\.]+(?:%?\\s*,\\s*[\\d\\.]+)?)%?\\s*\\)|hsla?\\(\\s*([\\d\\.]+(?:deg|\\xb0|%)?\\s*,\\s*[\\d\\.]+%?\\s*",
+        "explanation": "Code obfuscation pattern detected, which may hide harmful logic.",
+        "recommendation": "Replace obfuscated logic with explicit, auditable code paths."
+      }
+    ],
+    "llmSummary": "## Overview\n- **Repo/commit:** OWASP/NodeGoat @ `c5cb68a7…`\n- **Score/level:** 63 (**yellow**)\n- **Key themes:** high-risk **credential/secrets exposure via configuration**, plus **minified/obfuscated vendor assets** that reduce auditability (and can mask tampering).\n\n## Top risks\n1. **Credential/secrets exposure through broad config loading (High)**\n   - **Evidence:** `config/config.js` loads environment config dynamically (e.g., `require(.../config/env/all.js)` based on `NODE_ENV`).\n   - **Risk:** Secrets and connection strings can be unintentionally accessible across environments, logged, or bundled into runtime contexts where they don’t belong. Increases blast radius if one part of the app is compromised.\n\n2. **Hardcoded/default database connection string (High)**\n   - **Evidence:** `config/env/all.js`: `process.env.MONGODB_URI || \"mongodb://localhost:27017/nodegoat\"`\n   - **Risk:** Encourages insecure defaults, accidental use in non-dev contexts, and makes it easy to run without explicit secret provisioning. If extended similarly for creds, it becomes a common source of leaked credentials and misconfigurations.\n\n3. **Minified/obfuscated vendor JavaScript reduces auditability (Medium)**\n   - **Evidence:** `app/assets/vendor/bootstrap/bootstrap-tour.js`, `app/assets/vendor/chart/raphael-min.js`\n   - **Risk:** Minified code is not inherently malicious, but it can **hide injected logic** and makes integrity review harder. If these files are modified or sourced insecurely, it can enable supply-chain style compromise.\n\n## Fix priorities\n### P0 (do first)\n- **Implement explicit secret mapping & least privilege**\n  - Centralize secrets (DB URI, API keys) via a dedicated secrets manager or environment variables with **explicit allowlist** (only the keys needed by each environment/service).\n  - Ensure configs don’t “pull in everything” by default; separate **non-secret config** from **secret material**.\n- **Remove insecure defaults for sensitive endpoints**\n  - Keep `mongodb://localhost...` only for development, and **fail fast** (startup error) if `MONGODB_URI` is missing in non-dev environments.\n\n### P1 (next)\n- **Add secret leakage guardrails**\n  - Prevent secrets from being logged/serialized (redaction middleware, config object sanitization).\n  - Add repo scanning + CI checks (e.g., gitleaks/trufflehog) and pre-commit hooks.\n\n### P2 (hardening)\n- **Treat vendor JS as supply-chain artifacts**\n  - Prefer package-manager sourced dependencies (npm/yarn) with lockfiles rather than checked-in vendored/minified blobs.\n  - Add **integrity verification** (checksums/SRI where applicable) and track versions.\n  - If you must keep vendored minified files, store the **unminified source + build recipe** to enable auditing and reproducible builds.",
+    "generatedAt": "2026-02-18T08:19:45.957Z"
+  },
+  "attest": {
+    "ok": false,
+    "status": 400,
+    "body": {
+      "error": "Only green reports are eligible for attestation"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "generatedAt": "2026-02-18T08:18:45.381Z",
+  "source": "pin-cases",
+  "cases": [
+    {
+      "id": "clean_baseline",
+      "title": "Clean Baseline",
+      "problem": "Judges need a low-risk baseline to verify the pipeline can produce a reproducible green verdict.",
+      "repoUrl": "https://github.com/octocat/Hello-World",
+      "commitSha": "7fd1a60b01f91b314f59955a4e4d4e80d8edf11d",
+      "expectedLevel": "green",
+      "expectedDimensions": [],
+      "expectedAttestability": "allowed"
+    },
+    {
+      "id": "remote_execution_risk",
+      "title": "Remote Execution Risk",
+      "problem": "A common supply-chain pattern pipes remote scripts directly into shell execution.",
+      "repoUrl": "https://github.com/Homebrew/install",
+      "commitSha": "5838cadbb2c7beb17c7dcdddb5f0dba6c4780feb",
+      "expectedLevel": "red",
+      "expectedDimensions": [
+        "remote_execution"
+      ],
+      "expectedAttestability": "denied"
+    },
+    {
+      "id": "credential_access_risk",
+      "title": "Credential Access Risk",
+      "problem": "Repository code frequently reads runtime secrets through environment variables and should be flagged for review.",
+      "repoUrl": "https://github.com/OWASP/NodeGoat",
+      "commitSha": "c5cb68a7084e4ae7dcc60e6a98768720a81841e8",
+      "expectedLevel": "yellow",
+      "expectedDimensions": [
+        "credential_access"
+      ],
+      "expectedAttestability": "denied"
+    }
+  ]
+}

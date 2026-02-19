@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-02-19T04:46:30.001Z",
+  "provider": "gemini",
+  "model": "gemini-2.5-flash-preview-tts",
+  "voice": "Kore",
+  "durationSec": 88.8,
+  "expectedDurationSec": 88.8,
+  "durationDeltaSec": 0,
+  "transcriptPath": "remotion/public/v3/audio/clawshield-voiceover-v3.txt",
+  "strategy": "scene-segmented-gemini-tts",
+  "scenes": [
+    {
+      "id": "scene1",
+      "model": "gemini-2.5-flash-preview-tts",
+      "voice": "Kore",
+      "mimeType": "audio/L16;codec=pcm;rate=24000",
+      "sourceDurationSec": 10.891,
+      "targetDurationSec": 10,
+      "durationDeltaSec": 0,
+      "outputPath": "remotion/public/v3/audio/segments/01-scene1.mp3"
+    },
+    {
+      "id": "scene2",
+      "model": "gemini-2.5-flash-preview-tts",
+      "voice": "Kore",
+      "mimeType": "audio/L16;codec=pcm;rate=24000",
+      "sourceDurationSec": 10.331,
+      "targetDurationSec": 12.8,
+      "durationDeltaSec": 0,
+      "outputPath": "remotion/public/v3/audio/segments/02-scene2.mp3"
+    },
+    {
+      "id": "scene3",
+      "model": "gemini-2.5-flash-preview-tts",
+      "voice": "Kore",
+      "mimeType": "audio/L16;codec=pcm;rate=24000",
+      "sourceDurationSec": 8.611,
+      "targetDurationSec": 18.8,
+      "durationDeltaSec": 0,
+      "outputPath": "remotion/public/v3/audio/segments/03-scene3.mp3"
+    },
+    {
+      "id": "scene4",
+      "model": "gemini-2.5-flash-preview-tts",
+      "voice": "Kore",
+      "mimeType": "audio/L16;codec=pcm;rate=24000",
+      "sourceDurationSec": 10.851,
+      "targetDurationSec": 15.8,
+      "durationDeltaSec": 0,
+      "outputPath": "remotion/public/v3/audio/segments/04-scene4.mp3"
+    },
+    {
+      "id": "scene5",
+      "model": "gemini-2.5-flash-preview-tts",
+      "voice": "Kore",
+      "mimeType": "audio/L16;codec=pcm;rate=24000",
+      "sourceDurationSec": 9.771,
+      "targetDurationSec": 14.8,
+      "durationDeltaSec": 0,
+      "outputPath": "remotion/public/v3/audio/segments/05-scene5.mp3"
+    },
+    {
+      "id": "scene6",
+      "model": "gemini-2.5-flash-preview-tts",
+      "voice": "Kore",
+      "mimeType": "audio/L16;codec=pcm;rate=24000",
+      "sourceDurationSec": 10.931,
+      "targetDurationSec": 11.8,
+      "durationDeltaSec": 0,
+      "outputPath": "remotion/public/v3/audio/segments/06-scene6.mp3"
+    },
+    {
+      "id": "scene7",
+      "model": "gemini-2.5-flash-preview-tts",
+      "voice": "Kore",
+      "mimeType": "audio/L16;codec=pcm;rate=24000",
+      "sourceDurationSec": 7.291,
+      "targetDurationSec": 4.8,
+      "durationDeltaSec": 0,
+      "outputPath": "remotion/public/v3/audio/segments/07-scene7.mp3"
+    }
+  ]
+}

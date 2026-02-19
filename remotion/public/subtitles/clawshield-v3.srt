@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:10,000
+OpenClaw skills ship fast, but install-time trust checks are weak. Hidden remote execution and
+credential reads turn one command into a high-impact risk.
+
+2
+00:00:10,000 --> 00:00:22,800
+ClawShield audits one repository commit, runs deterministic scoring, generates AI-readable
+guidance, then binds the outcome with fingerprint and report hash.
+
+3
+00:00:22,800 --> 00:00:41,600
+The Case Gallery shows three fixed inputs with three reproducible outputs: one green baseline
+and two policy-denied risk cases.
+
+4
+00:00:41,600 --> 00:00:57,400
+For green outcomes, attestation on opBNB records score, fingerprint, report hash, repository,
+and commit in one verifiable event.
+
+5
+00:00:57,400 --> 00:01:12,200
+AI contribution is explicit: prompts, outputs, diffs, and screenshots are linked so judges can
+inspect exactly what AI changed.
+
+6
+00:01:12,200 --> 00:01:24,000
+Submission claims map one-to-one to artifacts: onchain proof, reproducible runs, AI build
+evidence, and a strict human-controlled trust boundary.
+
+7
+00:01:24,000 --> 00:01:28,800
+ClawShield turns commit risk into a fast and auditable go or no-go decision before
+installation.
+
